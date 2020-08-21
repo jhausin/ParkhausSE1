@@ -105,7 +105,7 @@
   </div>
   <hr>
   <form class="form">
-    <a href="">
+    <a href="Views/config-form.jsp">
       <i class="fas fa-wrench"></i><br>
       Parkhaus konfigurieren
     </a>
