@@ -10,6 +10,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ConfigServlet</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern>/Config</url-pattern>
     </servlet-mapping>
 </web-app>
