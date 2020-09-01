@@ -10,6 +10,34 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ConfigServlet</servlet-name>
-        <url-pattern>/Config</url-pattern>
+        <url-pattern>/configservlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Config</servlet-name>
+        <jsp-file>/config.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Config</servlet-name>
+        <url-pattern>/config</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Simulation</servlet-name>
+        <jsp-file>/simulation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Simulation</servlet-name>
+        <url-pattern>/simulation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowConfig</servlet-name>
+        <jsp-file>/showConfig.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowConfig</servlet-name>
+        <url-pattern>/show-config</url-pattern>
     </servlet-mapping>
 </web-app>
+

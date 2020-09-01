@@ -15,38 +15,19 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
         crossorigin="anonymous">
   <style>
-    *{
+    :root{
+      --primary: rgba(255,255,255, 0.95);
+      --secondary: rgb(49,49,49);
+    }
+    * {
       font-family: 'Poppins', sans-serif;
-      color: white;
+      color: var(--secondary);
     }
-    body{
-      background-image: url("./ressources/parking-lot.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      margin: 0;
-      padding: 0;
-    }
-    .container{
-      background-color: rgb(49, 49, 49);
-      width: 25%;
-      height: 100%;
-      animation: fade-in 1.5s;
-    }
-    @keyframes fade-in{
-      from{opacity: 0}
-      to{opacity: 1}
-    }
-    .container h1{
-      padding-top: 40px;
-      text-align: center;
-    }
-    </style>
-<body>
-  <div class="container">
-    <h1>Parkhaus Simulation</h1>
 
-  </div>
+  </style>
+<body>
+  <jsp:include page="templates/container.html"/>
+
 </body>
 
 </html>
