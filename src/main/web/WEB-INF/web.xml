@@ -10,7 +10,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ConfigServlet</servlet-name>
-        <url-pattern>/configservlet</url-pattern>
+        <url-pattern>/c</url-pattern>
     </servlet-mapping>
 
     <servlet>
