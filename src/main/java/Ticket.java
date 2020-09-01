@@ -11,7 +11,7 @@ class Ticket{
 
     public Ticket(String lp){
         this.licensePlate = lp;
-        entrance = new Date();
+        this.entrance = new Date();
         numberOfTickets++;
         this.ticketID = numberOfTickets;
     }
