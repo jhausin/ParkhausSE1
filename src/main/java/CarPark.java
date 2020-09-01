@@ -6,11 +6,20 @@ public class CarPark {
     private ParkingLot[] park;
     private double price;
     private int freeCarSpaces;
+    private int freeLocalSpaces;
+    private int freeDisabledSpaces;
+    private int freeWomanSpaces;
     private int freeBikeSpaces;
+
 
 
     public CarPark(int amountLots, int numbOfWoman, int numbOfDisabled, int numbOfLocal,int numbOfBike, double p){ //muss vorm aufruf getestet werden ob gesammt größer als die einzelnen sind
         this.park = new ParkingLot[amountLots];
+        this.freeLocalSpaces = numbOfLocal;
+        this.freeDisabledSpaces = numbOfDisabled;
+        this.freeWomanSpaces = numbOfWoman;
+        this.freeBikeSpaces = numbOfBike;
+        this.freeCarSpaces = amountLots - numbOfWoman - numbOfBike - numbOfDisabled - numbOfLocal;
         for (int i =0; i < amountLots; i++){
             if(numbOfWoman > 0){
                 park[i] = new ParkingLot(false,true,false,false);
@@ -33,18 +42,20 @@ public class CarPark {
 
     }
 
-    public VehicleIF createVehicle(String lp, boolean l, boolean w, boolean d, boolean isBike){
+    /*
+      public VehicleIF createVehicle(String lp, boolean l, boolean w, boolean d, boolean isBike){
         if (isBike){
             return new Bike(l, lp);
         } else {
             return new Car(w,d,l,lp);
         }
     }
+    */
 
     public VehicleIF createRandomVehicle(){
         Random rand = new Random();
 
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVW";
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lp;
         char[] plate;
 
@@ -107,23 +118,54 @@ public class CarPark {
 
     }//random vehicle constructor
 
-    public void enter(VehicleIF v){     //add women local disabled
-
+    public void enter(){     //add women local disabled
+        VehicleIF v = createRandomVehicle();
         if (v.isBike()){
             int ind = 0;
             while(this.freeBikeSpaces > 0){
                 if (this.park[ind].isEmpty() && this.park[ind].isForBike){
                     park[ind].addVehicle(v);
+                    freeBikeSpaces--;
+                    return;
+                }
+                ind++;
+            }
+        } else if (v.isLocal()){
+                int ind = 0;
+                while(this.freeLocalSpaces > 0){
+                    if (this.park[ind].isEmpty() && this.park[ind].isForLocal){
+                        park[ind].addVehicle(v);
+                        freeLocalSpaces--;
+                        return;
+                    }
+                    ind++;
+                }
+        } else if (v.isDisabled()){
+            int ind = 0;
+            while(this.freeDisabledSpaces > 0){
+                if (this.park[ind].isEmpty() && this.park[ind].isForDisabled){
+                    park[ind].addVehicle(v);
+                    freeDisabledSpaces--;
+                    return;
+                }
+                ind++;
+            }
+        }  else if (v.isWoman()){
+            int ind = 0;
+            while(this.freeDisabledSpaces > 0){
+                if (this.park[ind].isEmpty() && this.park[ind].isForWoman){
+                    park[ind].addVehicle(v);
+                    freeWomanSpaces--;
                     return;
                 }
                 ind++;
             }
         } else {
-            int ind = 0;
-            while(this.freeCarSpaces > 0){
-                if (this.park[ind].isEmpty() && !this.park[ind].isForBike){
-                    this.park[ind].addVehicle(v);
-                    return;
+                int ind = 0;
+                while(this.freeCarSpaces > 0){
+                    if (this.park[ind].isEmpty() && !this.park[ind].isForBike){
+                        this.park[ind].addVehicle(v);
+                        return;
                 }
                 ind++;
             }
@@ -134,9 +176,16 @@ public class CarPark {
     public void leave(int v){             //Number instead of vehicle
         if(park[v] != null){
             if (!park[v].vehicle.getTicket().isPaid()) {
+
                 park[v].vehicle.getTicket().payTicket();
 
             }
+            if(park[v].vehicle.isWoman()) freeWomanSpaces++;
+            else if(park[v].vehicle.isDisabled()) freeDisabledSpaces++;
+            else if(park[v].vehicle.isLocal()) freeLocalSpaces++;
+            else if(park[v].vehicle.isBike()) freeBikeSpaces++;
+            else freeCarSpaces++;
+
             park[v].vehicle.getTicket().exit = new Date();
             park[v].removeVehicle();
         }

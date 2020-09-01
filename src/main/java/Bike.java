@@ -25,4 +25,12 @@ public class Bike implements VehicleIF{
     public boolean isBike() {
         return true;
     }
+
+    public boolean isDisabled() {
+        return false;
+    }
+
+    public boolean isWoman() {
+        return false;
+    }
 }

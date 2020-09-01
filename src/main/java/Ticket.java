@@ -6,7 +6,7 @@ class Ticket{
     String licensePlate;
     private boolean isPaid;
     private int ticketID;
-    private int numberOfTickets;
+    int numberOfTickets;
 
 
     public Ticket(String lp){
@@ -22,5 +22,9 @@ class Ticket{
 
     public void payTicket(){
         this.isPaid = true;
+    }
+
+    public int getTicketID(){
+        return this.ticketID;
     }
 }

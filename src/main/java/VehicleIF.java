@@ -6,5 +6,7 @@ public interface VehicleIF {
      boolean isLocal();
      Ticket getTicket();
      boolean isBike();
+     boolean isDisabled();
+     boolean isWoman();
 
 }
