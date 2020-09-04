@@ -192,8 +192,33 @@ public class CarPark {
 
     }
 
+    public int getFreeCarSpaces() {
+        return this.freeCarSpaces;
+    }
 
+    public int getFreeLocalSpaces() {
+        return this.freeLocalSpaces;
+    }
 
+    public int getFreeDisabledSpaces() {
+        return this.freeDisabledSpaces;
+    }
+
+    public int getFreeWomanSpaces() {
+        return this.freeWomanSpaces;
+    }
+
+    public int getFreeBikeSpaces() {
+        return this.freeBikeSpaces;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public int getParkinglots(){
+        return this.park.length;
+    }
 
     private class ParkingLot {      //add woman local disabled
         VehicleIF vehicle = null;
