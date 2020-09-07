@@ -1,0 +1,171 @@
+/**
+*Author: Joshua Bäuml
+*/
+
+@startuml
+
+class ConfigServlet{
+    #doPost(request: HttpServletRequest, response: HttpServletResponse): void
+    #doGet(request: HttpServletRequest, response: HttpServletResponse): void
+}
+
+interface VehicleIF{
+    getLicensePlate(): String
+    isLocal(): boolean
+    getTicket(): Ticket
+    isBike(): boolean
+    isDisabled(): boolean
+    isWoman(): boolean
+}
+
+class Bike{
+
+    t: Ticket
+    local: boolean
+    licensePlate: String
+
+    +Bike(l: boolean, lp: String)
+    +getLicensePlate(): String
+    +isLocal(): boolean
+    +getTicket(): Ticket
+    +isBike(): boolean
+    +isDisabled(): boolean
+    +isWoman(): boolean
+}
+
+
+class Car{
+    -woman: boolean
+    -disabled: boolean
+    -local: boolean
+    -t: Ticket
+    licensePlate: String
+
+    +Car(w: boolean, d: boolean, l: boolean, plate: String)
+    +getLicensePlate(): String
+    +isWoman(): boolean
+    +isDisabled(): boolean
+    +isLocal(): boolean
+    +getTicket(): Ticket
+    +isBike(): boolean
+}
+
+class CarPark{
+    -park: ParkingLot[]
+    -price: double
+    -freeCarSpaces: int
+    -freeLocalSpaces: int
+    -freeDisabledSpaces: int
+    -freeWomanSpaces: int
+    -freeBikeSpaces: int
+
+    +CarPark(amountLots: int, numbOfWoman: int, numbOfDisabled: int, numbOfLocal: int, numbOfBike: int, p: double)
+    +createRandomVehicle(): VehicleIF
+    +enter(): void
+    +leave(v: int): void
+    +getFreeCarSpaces(): int
+    +getFreeLocalSpaces(): int
+    +getFreeDisabledSpaces(): int
+    +getFreeWomanSpaces(): int
+    +getFreeBikeSpaces(): int
+    +getPrice(): double
+    +getParkinglots(): int
+
+}
+
+class ParkingLot{
+    vehicle: VehicleIF
+    +isForBike: boolean
+    +isForWoman: boolean
+    +isForLocal: boolean
+    +isForDisabled: boolean
+
+    +ParkingLot(b: boolean, w: boolean, l: boolean, d: boolean)
+    +isEmpty(): boolean
+    +removeVehicle(): VehicleIF
+    +addVehicle(v: VehicleIF): void
+
+}
+
+
+class Config{
+    -name: String
+    -totalLots: int
+    -womenLots: int
+    -disabledLots: int
+    -aboLots: int
+    -price: double
+
+    +Config()
+    +Config(config: JsonObject)
+    +validateConfig(config: JsonObject): boolean
+}
+
+class Ticket{
+    entrance: Date
+    exit: Date
+    +licensePlat: String
+    -isPaid: boolean
+    -ticketID: int
+    numberOfTickets: int
+
+    +Ticket(lp: String)
+    +isPaid(): boolean
+    +payTicket(): void
+    +getTicketID(): int
+
+}
+
+class CarParkTest <<JUnit>>{
+    ph: CarPark
+    car: VehicleIF
+
+    init(): void
+    checkNumberOfParkspaces_AssertTrue(): void
+    createRandomVehicle(): void
+    enter(): void
+    leave(): void
+
+
+}
+
+class VehicleIFTest <<JUnit>>{
+    bike: VehicleIF
+    car: VehicleIF
+    notLocal: VehicleIF
+    wrongPlate: VehicleIF
+
+    init(): void
+    CarGetLicensePlate_AssertEquals(): void
+    CarGetLicensePlate_AssertNotEquals(): void
+    CarIsLocal_AssertTrue(): void
+    CarGetTicket_ByLicenseplate_AssertNotEquals(): void
+    CarIsBike_AssertFalse(): void
+    BikeGetLicensePlateB_AssertEquals(): void
+    BikeIsLocal_AssertTrue(): void
+    BikeIsLocal_AssertFalse(): void
+    BikeGetTicket_ByLicenseplate_AssertEquals(): void
+    BikeIsBike_AssertTrue(): void
+}
+
+class ServletException
+class IOException
+class IllegalArgumentException
+class HttpServlet
+
+ConfigServlet .. ServletException : throws
+ConfigServlet .. IOException : throws
+ConfigServlet -|> HttpServlet : <<extends>>
+
+Config .. IllegalArgumentException: throws
+
+Bike ..|> VehicleIF
+Car ..|> VehicleIF
+
+CarPark +-- ParkingLot
+
+VehicleIF .. VehicleIFTest: tests
+CarPark .. CarParkTest: tests
+
+
+@enduml
