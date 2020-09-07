@@ -1,3 +1,7 @@
+package models;
+
+import interfaces.VehicleIF;
+
 public class Car implements VehicleIF {
 
     private boolean woman;

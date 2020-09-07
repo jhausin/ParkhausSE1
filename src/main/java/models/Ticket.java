@@ -1,10 +1,12 @@
+package models;
+
 import java.util.Date;
 
-class Ticket{
+public class Ticket{
     Date entrance;
     Date exit;
-    String licensePlate;
-    private boolean isPaid;
+    public String licensePlate;
+    private boolean isPaid = false;
     private int ticketID;
     int numberOfTickets;
 

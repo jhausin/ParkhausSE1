@@ -80,7 +80,7 @@
         <div class="inner-container">
             <h1>Parkhaus Konfigurieren</h1>
         </div>
-        <form action="/config-servlet"  method="POST" class="config-form">
+        <form action="${pageContext.request.contextPath}/ConfigServlet"  method="POST" class="config-form">
             <div class="input-div">
                 <label for="name">Parkhaus Name:</label>
                 <input type="text" name="name" id="name">
@@ -102,10 +102,10 @@
                 <input type="number" name="abo" id="abo">
             </div>
             <div class="input-div">
-                <label for="price">Preis:</label>
-                <input type="number" name="price" id="price">
+                <label for="price">Preis/Stunde:</label>
+                <input type="number" name="price" id="price" step="any">
             </div>
-            <button type="submit"><i class="fas fa-paper-plane"></i> Submit</button>
+            <button type="submit"><i class="fas fa-paper-plane" ></i> Submit</button>
         </form>
     </div>
 

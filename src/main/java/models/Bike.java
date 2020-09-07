@@ -1,4 +1,8 @@
-public class Bike implements VehicleIF{
+package models;
+
+import interfaces.VehicleIF;
+
+public class Bike implements VehicleIF {
 
     Ticket t;
     boolean local;

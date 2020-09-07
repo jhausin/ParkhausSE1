@@ -1,3 +1,7 @@
+package models;
+
+import interfaces.VehicleIF;
+
 import java.util.Date;
 import java.util.Random;
 
@@ -13,7 +17,7 @@ public class CarPark {
 
 
 
-    public CarPark(int amountLots, int numbOfWoman, int numbOfDisabled, int numbOfLocal,int numbOfBike, double p){ //muss vorm aufruf getestet werden ob gesammt größer als die einzelnen sind
+    public CarPark(int amountLots, int numbOfWoman, int numbOfDisabled, int numbOfLocal,int numbOfBike, double p){ //muss vorm aufruf getestet werden ob gesamt größer als die einzelnen sind
         this.park = new ParkingLot[amountLots];
         this.freeLocalSpaces = numbOfLocal;
         this.freeDisabledSpaces = numbOfDisabled;
@@ -43,11 +47,11 @@ public class CarPark {
     }
 
     /*
-      public VehicleIF createVehicle(String lp, boolean l, boolean w, boolean d, boolean isBike){
+      public interfaces.VehicleIF createVehicle(String lp, boolean l, boolean w, boolean d, boolean isBike){
         if (isBike){
-            return new Bike(l, lp);
+            return new models.Bike(l, lp);
         } else {
-            return new Car(w,d,l,lp);
+            return new models.Car(w,d,l,lp);
         }
     }
     */
