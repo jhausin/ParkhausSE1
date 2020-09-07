@@ -1,9 +1,5 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: JANNIK
-  Date: 20.08.2020
-  Time: 13:50
-  To change this template use File | Settings | File Templates.
+  Author: Jannik Hausin
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
