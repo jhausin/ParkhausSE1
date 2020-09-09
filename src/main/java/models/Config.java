@@ -12,7 +12,8 @@ public class Config {
     private int totalLots;
     private int womenLots;
     private int disabledLots;
-    private int aboLots;
+    private int localLots;
+    private int bikeLots;
     private double price;
 
     /**
@@ -23,16 +24,18 @@ public class Config {
         this.totalLots = 40;
         this.womenLots = 5;
         this.disabledLots = 2;
-        this.aboLots = 8;
+        this.localLots = 8;
+        this.bikeLots = 4;
         this.price = 1.5;
     }
-    public Config(JsonObject config){
+    public Config(JsonObject config) throws IllegalArgumentException {
         if(validateConfig(config)) {
             this.name = config.getString("name");
             this.totalLots = config.getInt("lots");
             this.womenLots = config.getInt("women");
             this.disabledLots = config.getInt("disabled");
-            this.aboLots = config.getInt("abo");
+            this.localLots = config.getInt("local");
+            this.bikeLots = config.getInt("bike");
             this.price = Double.parseDouble(config.getString("price"));
         }
         else{
@@ -41,8 +44,24 @@ public class Config {
     }
     public boolean validateConfig(JsonObject config){
         return config.getInt("lots")
-                > config.getInt("women")
+                > (config.getInt("women")
                 + config.getInt("disabled")
-                + config.getInt("abo");
+                + config.getInt("local"));
+    }
+    public int getValue(String type) throws IllegalArgumentException{
+        return switch (type) {
+            case "total" -> this.totalLots;
+            case "women" -> this.womenLots;
+            case "disabled" -> this.disabledLots;
+            case "local" -> this.localLots;
+            case "bike" -> this.bikeLots;
+            default -> throw new IllegalArgumentException("Unexpected value: " + type);
+        };
+    }
+    public String getName(){
+        return this.name;
+    }
+    public Double getPrice(){
+        return this.price;
     }
 }
