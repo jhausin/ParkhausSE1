@@ -94,8 +94,8 @@
                 <input type="number" name="disabled" id="disabled">
             </div>
             <div class="input-div">
-                <label for="abo">Davon Abonnentenparkplätze:</label>
-                <input type="number" name="abo" id="abo">
+                <label for="local">Davon Anwohnerparkplätze:</label>
+                <input type="number" name="local" id="local">
             </div>
             <div class="input-div">
                 <label for="price">Preis/Stunde:</label>

@@ -11,7 +11,6 @@
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
           crossorigin="anonymous">
     <style>
-
         * {
             font-family: 'Poppins', sans-serif;
             color: var(--secondary);
@@ -36,6 +35,16 @@
 <div class="simulation-container">
     <div class="inner-container">
         <h1>Simulation</h1>
+        <div class="config-container">
+
+        </div>
+        <div class="start-container">
+            <form action="/simulation/start" method="post">
+                <button type="submit">Start Simulation</button>
+
+            </form>
+        </div>
+
     </div>
 </div>
 

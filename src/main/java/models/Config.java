@@ -64,4 +64,14 @@ public class Config {
     public Double getPrice(){
         return this.price;
     }
+
+    public String toString(){
+        return "Name: " + this.name + "\n"
+                + "Anzahl Parkplätze gesamt: " + this.totalLots + "\n"
+                + "Frauenparkplätze: " + this.womenLots + "\n"
+                + "Behindertenparkplätze: " +  this.disabledLots + "\n"
+                + "Anwohnerparkplätze: " + this.localLots + "\n"
+                + "Parkplätze für Motorräder: " + this.bikeLots + "\n"
+                + "Preis pro Stunde: " + this.price + "€";
+    }
 }
