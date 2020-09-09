@@ -17,7 +17,7 @@ class CarParkTest {
 
     @BeforeEach
     void init(){
-        ph=new CarPark(15,2,2,5,2,2.5);
+        ph=new CarPark(new Config());
         car=new Car(false,false,false,"K-ABC-123");
 
     }
