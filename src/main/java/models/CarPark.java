@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class CarPark {
 
+    private String name;
     private ParkingLot[] park;
     private double price;
     private int freeCarSpaces;
@@ -17,14 +18,22 @@ public class CarPark {
 
 
 
-    public CarPark(int amountLots, int numbOfWoman, int numbOfDisabled, int numbOfLocal,int numbOfBike, double p){ //muss vorm aufruf getestet werden ob gesamt größer als die einzelnen sind
-        this.park = new ParkingLot[amountLots];
-        this.freeLocalSpaces = numbOfLocal;
-        this.freeDisabledSpaces = numbOfDisabled;
-        this.freeWomanSpaces = numbOfWoman;
-        this.freeBikeSpaces = numbOfBike;
-        this.freeCarSpaces = amountLots - numbOfWoman - numbOfBike - numbOfDisabled - numbOfLocal;
-        for (int i =0; i < amountLots; i++){
+    public CarPark(Config c){ //muss vorm aufruf getestet werden ob gesamt größer als die einzelnen sind
+
+        this.park = new ParkingLot[c.getValue("total")];
+        this.freeLocalSpaces = c.getValue("local");
+        this.freeDisabledSpaces = c.getValue("disabled");
+        this.freeWomanSpaces = c.getValue("women");
+        this.freeBikeSpaces = c.getValue("bike");
+        this.freeCarSpaces = this.park.length - this.freeWomanSpaces - this.freeBikeSpaces - this.freeDisabledSpaces - this.freeLocalSpaces;
+
+        int numbOfWoman = this.freeWomanSpaces;
+        int numbOfDisabled = this.freeDisabledSpaces;
+        int numbOfLocal = this.freeLocalSpaces;
+        int numbOfBike = this.freeBikeSpaces;
+
+
+        for (int i =0; i < this.park.length; i++){
             if(numbOfWoman > 0){
                 park[i] = new ParkingLot(false,true,false,false);
                 numbOfWoman--;
@@ -41,33 +50,31 @@ public class CarPark {
                 break;
             }
         }
-        this.price = p;
-
+        this.price = c.getPrice();
+        this.name = c.getName();
 
     }
 
-    /*
-      public interfaces.VehicleIF createVehicle(String lp, boolean l, boolean w, boolean d, boolean isBike){
+
+    public VehicleIF createVehicle(String lp, boolean l, boolean w, boolean d, boolean isBike){
         if (isBike){
-            return new models.Bike(l, lp);
+            return new Bike(l, lp);
         } else {
-            return new models.Car(w,d,l,lp);
+            return new Car(w,d,l,lp);
         }
     }
-    */
+
 
     public VehicleIF createRandomVehicle(){
         Random rand = new Random();
 
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lp;
-        char[] plate;
-
-        switch(rand.nextInt(3)){
-            case 0: plate = new char[9]; break;
-            case 1: plate = new char[10]; break;
-            default: plate = new char[11];
-        }
+        char[] plate = switch (rand.nextInt(3)) {
+            case 0 -> new char[9];
+            case 1 -> new char[10];
+            default -> new char[11];
+        };
 
         for (int i = 0; i < plate.length; i++) {
             if(i == 1 && plate.length == 9){
@@ -104,20 +111,19 @@ public class CarPark {
         lp = String.valueOf(plate);
 
 
-        switch(rand.nextInt(10)){
-            case 0: return new Bike(false,lp);
-            case 1: return new Bike(true,lp);
-            case 2: return new Car(false,false,false,lp);
-            case 3: return new Car(false,false,true,lp);
-            case 4: return new Car(false,true,false,lp);
-            case 5: return new Car(true,false,false,lp);
-            case 6: return new Car(false,true,true,lp);
-            case 7: return new Car(true,true,false,lp);
-            case 8: return new Car(true,false,true,lp);
-            case 9: return new Car(true,true,true,lp);
-            default: return null;
-
-        }
+        return switch (rand.nextInt(10)) {
+            case 0 -> new Bike(false, lp);
+            case 1 -> new Bike(true, lp);
+            case 2 -> new Car(false, false, false, lp);
+            case 3 -> new Car(false, false, true, lp);
+            case 4 -> new Car(false, true, false, lp);
+            case 5 -> new Car(true, false, false, lp);
+            case 6 -> new Car(false, true, true, lp);
+            case 7 -> new Car(true, true, false, lp);
+            case 8 -> new Car(true, false, true, lp);
+            case 9 -> new Car(true, true, true, lp);
+            default -> null;
+        };
 
 
     }//random vehicle constructor
