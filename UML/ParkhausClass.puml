@@ -7,6 +7,14 @@
 class ConfigServlet{
     #doPost(request: HttpServletRequest, response: HttpServletResponse): void
     #doGet(request: HttpServletRequest, response: HttpServletResponse): void
+    +handleRequest(request: HttpServletRequest, response: HttpServletResponse): void
+}
+
+class SimulationServlet{
+    #doPost(request: HttpServletRequest, response: HttpServletResponse): void
+    #doGet(request: HttpServletRequest, response: HttpServletResponse): void
+    +createJson(): JsonObject
+
 }
 
 interface VehicleIF{
@@ -51,6 +59,7 @@ class Car{
 }
 
 class CarPark{
+    -name: String
     -park: ParkingLot[]
     -price: double
     -freeCarSpaces: int
@@ -59,7 +68,8 @@ class CarPark{
     -freeWomanSpaces: int
     -freeBikeSpaces: int
 
-    +CarPark(amountLots: int, numbOfWoman: int, numbOfDisabled: int, numbOfLocal: int, numbOfBike: int, p: double)
+    +CarPark(c: Config)
+    +createVehicle(lp: String, l: boolean, w: boolean, d: boolean, isBike: boolean): VehicleIF
     +createRandomVehicle(): VehicleIF
     +enter(): void
     +leave(v: int): void
@@ -93,12 +103,17 @@ class Config{
     -totalLots: int
     -womenLots: int
     -disabledLots: int
-    -aboLots: int
+    -localLots: int
+    -bikeLots: int
     -price: double
 
     +Config()
     +Config(config: JsonObject)
     +validateConfig(config: JsonObject): boolean
+    +getValue(type: String): int
+    +getName(): String
+    +getPrice(): double
+    +toString(): String
 }
 
 class Ticket{
@@ -156,6 +171,10 @@ class HttpServlet
 ConfigServlet .. ServletException : throws
 ConfigServlet .. IOException : throws
 ConfigServlet -|> HttpServlet : <<extends>>
+
+SimulationServlet .. ServletException: throws
+SimulationServlet .. IOException: throws
+SimulationServlet -|> HttpServlet: <<extends>
 
 Config .. IllegalArgumentException: throws
 
