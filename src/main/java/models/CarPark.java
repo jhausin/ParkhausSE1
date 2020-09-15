@@ -130,60 +130,15 @@ public class CarPark {
 
     public void enter(){     //add women local disabled
         VehicleIF v = createRandomVehicle();
-        if (v.isBike()){
-            int ind = 0;
-            while(this.freeBikeSpaces > 0){
-                if (this.park[ind].isEmpty() && this.park[ind].isForBike){
-                    park[ind].addVehicle(v);
-                    freeBikeSpaces--;
-                    return;
-                }
-                ind++;
-            }
-        } else if (v.isLocal()){
-                int ind = 0;
-                while(this.freeLocalSpaces > 0){
-                    if (this.park[ind].isEmpty() && this.park[ind].isForLocal){
-                        park[ind].addVehicle(v);
-                        freeLocalSpaces--;
-                        return;
-                    }
-                    ind++;
-                }
-        } else if (v.isDisabled()){
-            int ind = 0;
-            while(this.freeDisabledSpaces > 0){
-                if (this.park[ind].isEmpty() && this.park[ind].isForDisabled){
-                    park[ind].addVehicle(v);
-                    freeDisabledSpaces--;
-                    return;
-                }
-                ind++;
-            }
-        }  else if (v.isWoman()){
-            int ind = 0;
-            while(this.freeDisabledSpaces > 0){
-                if (this.park[ind].isEmpty() && this.park[ind].isForWoman){
-                    park[ind].addVehicle(v);
-                    freeWomanSpaces--;
-                    return;
-                }
-                ind++;
-            }
-        } else {
-                int ind = 0;
-                while(this.freeCarSpaces > 0){
-                    if (this.park[ind].isEmpty() && !this.park[ind].isForBike){
-                        this.park[ind].addVehicle(v);
-                        return;
-                }
-                ind++;
-            }
-        }
+        enterVehicle(v);
 
     }
     public void enter(VehicleIF v){     //add women local disabled
+        enterVehicle(v);
 
+
+    }
+    public void enterVehicle(VehicleIF v){
         if (v.isBike()){
             int ind = 0;
             while(this.freeBikeSpaces > 0){
@@ -234,9 +189,7 @@ public class CarPark {
                 ind++;
             }
         }
-
     }
-
     public void leave(int v){             //Number instead of vehicle
         if(v < park.length && v >= 0 && park[v].vehicle != null){
             if (!park[v].vehicle.getTicket().isPaid()) {
