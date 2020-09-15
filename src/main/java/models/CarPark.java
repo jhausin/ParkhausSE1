@@ -182,9 +182,63 @@ public class CarPark {
         }
 
     }
+    public void enter(VehicleIF v){     //add women local disabled
+
+        if (v.isBike()){
+            int ind = 0;
+            while(this.freeBikeSpaces > 0){
+                if (this.park[ind].isEmpty() && this.park[ind].isForBike){
+                    park[ind].addVehicle(v);
+                    freeBikeSpaces--;
+                    return;
+                }
+                ind++;
+            }
+        } else if (v.isLocal()){
+            int ind = 0;
+            while(this.freeLocalSpaces > 0){
+                if (this.park[ind].isEmpty() && this.park[ind].isForLocal){
+                    park[ind].addVehicle(v);
+                    freeLocalSpaces--;
+                    return;
+                }
+                ind++;
+            }
+        } else if (v.isDisabled()){
+            int ind = 0;
+            while(this.freeDisabledSpaces > 0){
+                if (this.park[ind].isEmpty() && this.park[ind].isForDisabled){
+                    park[ind].addVehicle(v);
+                    freeDisabledSpaces--;
+                    return;
+                }
+                ind++;
+            }
+        }  else if (v.isWoman()){
+            int ind = 0;
+            while(this.freeDisabledSpaces > 0){
+                if (this.park[ind].isEmpty() && this.park[ind].isForWoman){
+                    park[ind].addVehicle(v);
+                    freeWomanSpaces--;
+                    return;
+                }
+                ind++;
+            }
+        } else {
+            int ind = 0;
+            while(this.freeCarSpaces > 0){
+                if (this.park[ind].isEmpty() && !this.park[ind].isForBike){
+                    this.park[ind].addVehicle(v);
+                    return;
+                }
+                ind++;
+            }
+        }
+
+    }
 
     public void leave(int v){             //Number instead of vehicle
-        if(park[v] != null){
+        if(park[v] != null && park[v].vehicle != null){
             if (!park[v].vehicle.getTicket().isPaid()) {
 
                 park[v].vehicle.getTicket().payTicket();
