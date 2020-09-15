@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Author: Jannik Hausin
 --%>
@@ -28,7 +29,16 @@
             margin: 20px;
             font-size: 36px;
         }
+        #config{
+
+        }
     </style>
+    <script>
+        function showConfig(){
+            let cfg = document.getElementById("config");
+            cfg.style.display="block";
+        }
+    </script>
 </head>
 <body>
 <jsp:include page="templates/container.html"/>
@@ -39,12 +49,20 @@
 
         </div>
         <div class="start-container">
-            <form action="/simulation/start" method="post">
-                <button type="submit">Start Simulation</button>
-
+            <form action="${pageContext.request.contextPath}/simulationServlet" method="post">
+                <button type="submit" onclick="">Start Simulation</button>
             </form>
         </div>
-
+        <div id="config">
+            <c:choose>
+                <c:when test="${empty requestScope.config}">
+                    Bitte Parkhaus konfigurieren.
+                </c:when>
+                <c:otherwise>
+                    Press Start to begin...
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
 </div>
 

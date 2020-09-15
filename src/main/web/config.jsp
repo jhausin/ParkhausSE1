@@ -79,27 +79,31 @@
         <form action="${pageContext.request.contextPath}/ConfigServlet"  method="POST" class="config-form">
             <div class="input-div">
                 <label for="name">Parkhaus Name:</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" value="Car Park">
             </div>
             <div class="input-div">
                 <label for="lots">Anzahl Parkplätze:</label>
-                <input type="number" name="lots" id="lots">
+                <input type="number" name="lots" id="lots" value="40">
             </div>
             <div class="input-div">
                 <label for="women">Davon Frauenparkplätze:</label>
-                <input type="number" name="women" id="women">
+                <input type="number" name="women" id="women" value="6">
             </div>
             <div class="input-div">
                 <label for="disabled">Davon Behindertenparkplätze:</label>
-                <input type="number" name="disabled" id="disabled">
+                <input type="number" name="disabled" id="disabled" value="3">
             </div>
             <div class="input-div">
                 <label for="local">Davon Anwohnerparkplätze:</label>
-                <input type="number" name="local" id="local">
+                <input type="number" name="local" id="local" value="12">
+            </div>
+            <div class="input-div">
+                <label for="bike">Davon Motorradparkplätze:</label>
+                <input type="number" name="bike" id="bike" value="4">
             </div>
             <div class="input-div">
                 <label for="price">Preis/Stunde:</label>
-                <input type="number" name="price" id="price" step="any">
+                <input type="number" name="price" id="price" step="any" value="1.50">
             </div>
             <button type="submit"><i class="fas fa-paper-plane" ></i> Submit</button>
         </form>
