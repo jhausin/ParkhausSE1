@@ -238,7 +238,7 @@ public class CarPark {
     }
 
     public void leave(int v){             //Number instead of vehicle
-        if(park[v] != null && park[v].vehicle != null){
+        if(v < park.length && v >= 0 && park[v].vehicle != null){
             if (!park[v].vehicle.getTicket().isPaid()) {
 
                 park[v].vehicle.getTicket().payTicket();
