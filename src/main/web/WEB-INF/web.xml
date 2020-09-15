@@ -19,7 +19,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>SimulationServlet</servlet-name>
-        <url-pattern>/simulation/start</url-pattern>
+        <url-pattern>/simulationServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -48,34 +48,5 @@
         <servlet-name>ShowConfig</servlet-name>
         <url-pattern>/show-config</url-pattern>
     </servlet-mapping>
-
-    <context-param>
-        <param-name>name</param-name>
-        <param-value>Car Park</param-value>
-    </context-param>
-    <context-param>
-        <param-name>totalLots</param-name>
-        <param-value>40</param-value>
-    </context-param>
-    <context-param>
-        <param-name>womenLots</param-name>
-        <param-value>5</param-value>
-    </context-param>
-    <context-param>
-        <param-name>disabledLots</param-name>
-        <param-value>2</param-value>
-    </context-param>
-    <context-param>
-        <param-name>localLots</param-name>
-        <param-value>10</param-value>
-    </context-param>
-    <context-param>
-        <param-name>bikeLots</param-name>
-        <param-value>4</param-value>
-    </context-param>
-    <context-param>
-        <param-name>price</param-name>
-        <param-value>1.5</param-value>
-    </context-param>
 </web-app>
 
