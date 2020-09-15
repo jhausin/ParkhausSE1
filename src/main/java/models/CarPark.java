@@ -25,6 +25,7 @@ public class CarPark {
         this.freeDisabledSpaces = c.getValue("disabled");
         this.freeWomanSpaces = c.getValue("women");
         this.freeBikeSpaces = c.getValue("bike");
+        //Wird schon in der Config klasse überprüft
         this.freeCarSpaces = this.park.length - this.freeWomanSpaces - this.freeBikeSpaces - this.freeDisabledSpaces - this.freeLocalSpaces;
 
         int numbOfWoman = this.freeWomanSpaces;
@@ -52,11 +53,11 @@ public class CarPark {
         }
         this.price = c.getPrice();
         this.name = c.getName();
-
     }
 
 
     public VehicleIF createVehicle(String lp, boolean l, boolean w, boolean d, boolean isBike){
+        //return isBike ? new Bike(l, lp) : new Car(w,d,l,lp);
         if (isBike){
             return new Bike(l, lp);
         } else {
@@ -131,13 +132,12 @@ public class CarPark {
     public void enter(){     //add women local disabled
         VehicleIF v = createRandomVehicle();
         enterVehicle(v);
-
     }
+
     public void enter(VehicleIF v){     //add women local disabled
         enterVehicle(v);
-
-
     }
+
     public void enterVehicle(VehicleIF v){
         if (v.isBike()){
             int ind = 0;
