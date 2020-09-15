@@ -22,8 +22,6 @@ class CarParkTest {
     void init(){
         ph=new CarPark(new Config());
         car=new Car(false,false,false,"K-AB-1234");
-
-
     }
 
     @Test
@@ -47,9 +45,8 @@ class CarParkTest {
 
     @Test
     void leave() {
-        ph.enter();
-        ph.enter();
-        ph.leave(0); //NullPointerException
-        assertEquals(39,ph.getFreeBikeSpaces()+ph.getFreeCarSpaces()+ph.getFreeDisabledSpaces()+ph.getFreeLocalSpaces()+ph.getFreeWomanSpaces());
+        ph.enter(car);
+        ph.leave(0);
+        assertEquals(40,ph.getFreeBikeSpaces()+ph.getFreeCarSpaces()+ph.getFreeDisabledSpaces()+ph.getFreeLocalSpaces()+ph.getFreeWomanSpaces());
     }
 }

@@ -13,7 +13,8 @@ class ConfigServlet{
 class SimulationServlet{
     #doPost(request: HttpServletRequest, response: HttpServletResponse): void
     #doGet(request: HttpServletRequest, response: HttpServletResponse): void
-    +createJson(): JsonObject
+    +createJson(request: HttpServletRequest): JsonObject
+    +checkAttributes(request: HttpServletRequest): boolean
 
 }
 
@@ -72,6 +73,8 @@ class CarPark{
     +createVehicle(lp: String, l: boolean, w: boolean, d: boolean, isBike: boolean): VehicleIF
     +createRandomVehicle(): VehicleIF
     +enter(): void
+    +enter(v: VehicleIF): void
+    +enterVehicle(v: VehicleIF): void
     +leave(v: int): void
     +getFreeCarSpaces(): int
     +getFreeLocalSpaces(): int
@@ -131,6 +134,10 @@ class Ticket{
 
 }
 
+class requestUtilities{
+    {static}+getRequestParams(request: HttpServletRequest): void
+}
+
 class CarParkTest <<JUnit>>{
     ph: CarPark
     car: VehicleIF
@@ -175,6 +182,8 @@ ConfigServlet -|> HttpServlet : <<extends>>
 SimulationServlet .. ServletException: throws
 SimulationServlet .. IOException: throws
 SimulationServlet -|> HttpServlet: <<extends>
+
+requestUtilities .. IOException: throws
 
 Config .. IllegalArgumentException: throws
 
