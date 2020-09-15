@@ -184,6 +184,7 @@ public class CarPark {
             while(this.freeCarSpaces > 0){
                 if (this.park[ind].isEmpty() && !this.park[ind].isForBike){
                     this.park[ind].addVehicle(v);
+                    freeCarSpaces--;
                     return;
                 }
                 ind++;
