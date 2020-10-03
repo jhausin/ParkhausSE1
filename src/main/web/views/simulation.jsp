@@ -41,7 +41,7 @@
     </script>
 </head>
 <body>
-<jsp:include page="templates/container.html"/>
+<jsp:include page="/templates/container.html"/>
 <div class="simulation-container">
     <div class="inner-container">
         <h1>Simulation</h1>

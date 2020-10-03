@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>Config</servlet-name>
-        <jsp-file>/config.jsp</jsp-file>
+        <jsp-file>/views/config.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>Config</servlet-name>
@@ -33,7 +33,7 @@
 
     <servlet>
         <servlet-name>Simulation</servlet-name>
-        <jsp-file>/simulation.jsp</jsp-file>
+        <jsp-file>/views/simulation.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>Simulation</servlet-name>

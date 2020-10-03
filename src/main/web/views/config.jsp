@@ -21,7 +21,6 @@
         }
         .simulation-container{
             background-color: var(--primary);
-            animation: fade-in 1s;
             height: 90%;
             width: 70%;
             margin: 30px 30px 30px 0;
@@ -38,6 +37,8 @@
             margin-left: 12.5%;
             width: 75%;
             font-size: 25px;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
         .config-form input{
             border: none;
@@ -47,7 +48,8 @@
             font-size: 24px;
         }
         .config-form button:hover {
-            font-size: 26px;
+            transform: scale(1.1);
+            cursor: pointer;
         }
         .config-form button {
             padding:0;
@@ -71,7 +73,7 @@
     </style>
 </head>
 <body>
-    <jsp:include page="templates/container.html"/>
+    <jsp:include page="/templates/container.html"/>
     <div class="simulation-container">
         <div class="inner-container">
             <h1>Parkhaus Konfigurieren</h1>

@@ -1,6 +1,7 @@
 package controller;
 
 import models.Config;
+import static utilities.requestUtilities.*;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -36,25 +37,6 @@ public class SimulationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
-    public JsonObject createJson(HttpServletRequest request){
-        return Json.createObjectBuilder()
-                .add("name", (String)request.getAttribute("name"))
-                .add("lots", (int)request.getAttribute("totalLots"))
-                .add("women", (int)request.getAttribute("womenLots"))
-                .add("disabled",(int)request.getAttribute("disabledLots"))
-                .add("local", (int)request.getAttribute("localLots"))
-                .add("bike", (int)request.getAttribute("bikeLots"))
-                .add("price", (double)request.getAttribute("price"))
-                .build();
-    }
-    public boolean checkAttributes(HttpServletRequest request){
-        return request.getAttribute("name") != null
-                || request.getAttribute("totalLots") != null
-                || request.getAttribute("womenLots") != null
-                || request.getAttribute("disabledLots") != null
-                || request.getAttribute("localLots") != null
-                || request.getAttribute("bikeLots") != null
-                || request.getAttribute("price") != null;
-    }
+
 
 }

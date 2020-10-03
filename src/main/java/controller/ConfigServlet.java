@@ -1,5 +1,7 @@
 package controller;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static utilities.requestUtilities.getRequestParams;
+import static utilities.requestUtilities.*;
 
 /**
  * Author: Jannik Hausin
@@ -18,46 +20,14 @@ import static utilities.requestUtilities.getRequestParams;
 
 @WebServlet(name = "ConfigServlet")
 public class ConfigServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServletContext ctx = getServletContext();
-        getRequestParams(request);
-        String name, lots, women, local, disabled, bike, price = "";
-
-        //handleRequest(request, response);
-        name = request.getParameter("name");
-        //request.setAttribute("ResponseName", name);
-        request.setAttribute("name", name);
-
-        lots = request.getParameter("lots");
-        //request.setAttribute("ResponseLots", lots);
-        request.setAttribute("totalLots", lots);
-
-        women = request.getParameter("women");
-        //request.setAttribute("ResponseWomen", women);
-        request.setAttribute("womenLots", women);
-
-        local = request.getParameter("local");
-        //request.setAttribute("ResponseLocal", local);
-        request.setAttribute("localLots", local);
-
-        disabled = request.getParameter("disabled");
-        //request.setAttribute("ResponseDisabled", disabled);
-        ctx.setAttribute("disabledLots", disabled);
-
-        bike = request.getParameter("bike");
-        request.setAttribute("bikeLots", bike);
-
-
-        price = request.getParameter("price");
-        //request.setAttribute("ResponsePrice", price);
-        ctx.setAttribute("price", price);
-
-        //System.out.println(ctx.getAttribute("price"));
-
-        RequestDispatcher view = request.getRequestDispatcher("simulation.jsp");
-        view.forward(request, response);
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        getRequestParams(req);
+        System.out.println(checkAttributes(req));
+        JsonObject cfg = createJson(req);
+        System.out.println(cfg);
+        //getContextParams(req);
+        res.sendRedirect("/views/simulation");
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     }
 }
