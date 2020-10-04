@@ -70,17 +70,19 @@
 </head>
 <body>
     <script>
-        $('#form').submit((event) => {
-            event.preventDefault();
-            $.ajax({
-                url: "http://localhost:8080/ConfigServlet",
-                type: 'POST',
-                data: $(this).closest('form').serialize(),
-                success: function () {
-                    console.log("WORKS")
-                }
-            });
-        });
+       $('document').ready(() => {
+           $('#form').submit((event) => {
+               event.preventDefault();
+               $.ajax({
+                   url: "http://localhost:8080/ConfigServlet",
+                   type: 'POST',
+                   data: $(this).closest('form').serialize(),
+                   success: function () {
+                       console.log("WORKS")
+                   }
+               });
+           });
+       })
     </script>
     <jsp:include page="/templates/container.html"/>
     <div class="simulation-container">
