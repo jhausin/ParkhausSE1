@@ -21,31 +21,27 @@
         }
         .simulation-container{
             background-color: var(--primary);
-            height: 90%;
             width: 70%;
-            margin: 30px 30px 30px 0;
             clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
         }
         .inner-container{
             text-align: center;
             margin: 20px 20px 20px 100px;
-            font-size: 36px;
+            font-size: 2rem;
         }
         .config-form{
             display: flex;
             flex-direction: column;
             margin-left: 12.5%;
             width: 75%;
-            font-size: 25px;
-            overflow-x: hidden;
-            overflow-y: auto;
+            font-size: 1.3rem;
         }
         .config-form input{
             border: none;
             border-bottom: 1px solid var(--secondary);
             background: none;
             max-width: 20%;
-            font-size: 24px;
+            font-size: 1.2rem;
         }
         .config-form button:hover {
             transform: scale(1.1);
@@ -73,35 +69,48 @@
     </style>
 </head>
 <body>
+    <script>
+        $('#form').submit((event) => {
+            event.preventDefault();
+            $.ajax({
+                url: "http://localhost:8080/ConfigServlet",
+                type: 'POST',
+                data: $(this).closest('form').serialize(),
+                success: function () {
+                    console.log("WORKS")
+                }
+            });
+        });
+    </script>
     <jsp:include page="/templates/container.html"/>
     <div class="simulation-container">
         <div class="inner-container">
             <h1>Parkhaus Konfigurieren</h1>
         </div>
-        <form action="${pageContext.request.contextPath}/ConfigServlet"  method="POST" class="config-form">
+        <form id="form" class="config-form">
             <div class="input-div">
                 <label for="name">Parkhaus Name:</label>
                 <input type="text" name="name" id="name" value="Car Park">
             </div>
             <div class="input-div">
-                <label for="lots">Anzahl Parkplätze:</label>
-                <input type="number" name="lots" id="lots" value="40">
+                <label for="totalLots">Anzahl Parkplätze:</label>
+                <input type="number" name="totalLots" id="totalLots" value="40">
             </div>
             <div class="input-div">
-                <label for="women">Davon Frauenparkplätze:</label>
-                <input type="number" name="women" id="women" value="6">
+                <label for="womenLots">Davon Frauenparkplätze:</label>
+                <input type="number" name="womenLots" id="womenLots" value="6">
             </div>
             <div class="input-div">
-                <label for="disabled">Davon Behindertenparkplätze:</label>
-                <input type="number" name="disabled" id="disabled" value="3">
+                <label for="disabledLots">Davon Behindertenparkplätze:</label>
+                <input type="number" name="disabledLots" id="disabledLots" value="3">
             </div>
             <div class="input-div">
-                <label for="local">Davon Anwohnerparkplätze:</label>
-                <input type="number" name="local" id="local" value="12">
+                <label for="localLots">Davon Anwohnerparkplätze:</label>
+                <input type="number" name="localLots" id="localLots" value="12">
             </div>
             <div class="input-div">
-                <label for="bike">Davon Motorradparkplätze:</label>
-                <input type="number" name="bike" id="bike" value="4">
+                <label for="bikeLots">Davon Motorradparkplätze:</label>
+                <input type="number" name="bikeLots" id="bikeLots" value="4">
             </div>
             <div class="input-div">
                 <label for="price">Preis/Stunde:</label>

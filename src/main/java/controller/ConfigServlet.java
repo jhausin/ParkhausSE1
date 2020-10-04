@@ -22,11 +22,8 @@ import static utilities.requestUtilities.*;
 public class ConfigServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         getRequestParams(req);
-        System.out.println(checkAttributes(req));
-        JsonObject cfg = createJson(req);
-        System.out.println(cfg);
+        System.out.println(checkAttributes(req));;
         //getContextParams(req);
-        res.sendRedirect("/views/simulation");
     }
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     }
