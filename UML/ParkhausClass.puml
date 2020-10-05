@@ -3,60 +3,45 @@
 */
 
 @startuml
+left to right direction
 
 class ConfigServlet{
     #doPost(request: HttpServletRequest, response: HttpServletResponse): void
-    #doGet(request: HttpServletRequest, response: HttpServletResponse): void
-    +handleRequest(request: HttpServletRequest, response: HttpServletResponse): void
 }
 
 class SimulationServlet{
     #doPost(request: HttpServletRequest, response: HttpServletResponse): void
     #doGet(request: HttpServletRequest, response: HttpServletResponse): void
-    +createJson(request: HttpServletRequest): JsonObject
-    +checkAttributes(request: HttpServletRequest): boolean
-
 }
 
 interface VehicleIF{
     getLicensePlate(): String
-    isLocal(): boolean
+    getType(): CustomerType
     getTicket(): Ticket
-    isBike(): boolean
-    isDisabled(): boolean
-    isWoman(): boolean
 }
 
 class Bike{
 
     t: Ticket
-    local: boolean
+    type: CustomerType
     licensePlate: String
 
-    +Bike(l: boolean, lp: String)
+    +Bike(x: CustomerType, lp: String)
     +getLicensePlate(): String
-    +isLocal(): boolean
+    +getType(): CustomerType
     +getTicket(): Ticket
-    +isBike(): boolean
-    +isDisabled(): boolean
-    +isWoman(): boolean
 }
 
 
 class Car{
-    -woman: boolean
-    -disabled: boolean
-    -local: boolean
-    -t: Ticket
-    licensePlate: String
+        t: Ticket
+        type: CustomerType
+        licensePlate: String
 
-    +Car(w: boolean, d: boolean, l: boolean, plate: String)
-    +getLicensePlate(): String
-    +isWoman(): boolean
-    +isDisabled(): boolean
-    +isLocal(): boolean
-    +getTicket(): Ticket
-    +isBike(): boolean
+        +Bike(x: CustomerType, lp: String)
+        +getLicensePlate(): String
+        +getType(): CustomerType
+        +getTicket(): Ticket
 }
 
 class CarPark{
@@ -68,14 +53,16 @@ class CarPark{
     -freeDisabledSpaces: int
     -freeWomanSpaces: int
     -freeBikeSpaces: int
+    +cfg: Config
 
     +CarPark(c: Config)
-    +createVehicle(lp: String, l: boolean, w: boolean, d: boolean, isBike: boolean): VehicleIF
+    +createVehicle(lp: String, x: CustomerType): VehicleIF
     +createRandomVehicle(): VehicleIF
     +enter(): void
     +enter(v: VehicleIF): void
     +enterVehicle(v: VehicleIF): void
     +leave(v: int): void
+    +leaveRandom(): VehicleIF
     +getFreeCarSpaces(): int
     +getFreeLocalSpaces(): int
     +getFreeDisabledSpaces(): int
@@ -83,21 +70,19 @@ class CarPark{
     +getFreeBikeSpaces(): int
     +getPrice(): double
     +getParkinglots(): int
+    +toString(): String
+    +getFreeSpaces(): int
 
 }
 
 class ParkingLot{
     vehicle: VehicleIF
-    +isForBike: boolean
-    +isForWoman: boolean
-    +isForLocal: boolean
-    +isForDisabled: boolean
+    type: CustomerType
 
-    +ParkingLot(b: boolean, w: boolean, l: boolean, d: boolean)
+    +Parkinglot(c: CustomerType)
     +isEmpty(): boolean
     +removeVehicle(): VehicleIF
     +addVehicle(v: VehicleIF): void
-
 }
 
 
@@ -126,16 +111,36 @@ class Ticket{
     -isPaid: boolean
     -ticketID: int
     numberOfTickets: int
+    -price: double
 
     +Ticket(lp: String)
     +isPaid(): boolean
-    +payTicket(): void
+    +payTicket(p: double): void
     +getTicketID(): int
+    +getEntranceDate(): Date
+    +getExitDate(): Date
+    +getPrice(): double
 
 }
 
+enum CustomerType{
+    Car
+    BIKE
+    DISABLED
+    WOMEN
+    LOCAL
+}
+
 class requestUtilities{
-    {static}+getRequestParams(request: HttpServletRequest): void
+    {static}+getRequestParams(req: HttpServletRequest): void
+    {static}+getContextParams(req: HttpServletRequest): void
+    {static}+setCOntextParam(req: HttpServletRequest): void
+    {static}+createJson(req: HttpServletRequest): JsonObject
+    {static}+checkAttributes(req: HttpServletRequest): boolean
+}
+
+class responseUtilities{
+    {static}+createVehicleAsJson(v: VehicleIF): JsonObject
 }
 
 class CarParkTest <<JUnit>>{
@@ -153,27 +158,18 @@ class CarParkTest <<JUnit>>{
 
 class VehicleIFTest <<JUnit>>{
     bike: VehicleIF
-    car: VehicleIF
-    notLocal: VehicleIF
-    wrongPlate: VehicleIF
 
     init(): void
-    CarGetLicensePlate_AssertEquals(): void
-    CarGetLicensePlate_AssertNotEquals(): void
-    CarIsLocal_AssertTrue(): void
-    CarGetTicket_ByLicenseplate_AssertNotEquals(): void
-    CarIsBike_AssertFalse(): void
-    BikeGetLicensePlateB_AssertEquals(): void
-    BikeIsLocal_AssertTrue(): void
-    BikeIsLocal_AssertFalse(): void
-    BikeGetTicket_ByLicenseplate_AssertEquals(): void
-    BikeIsBike_AssertTrue(): void
+    getLicensePlate(): void
+    getType(): void
+    getTicket(): void
 }
 
 class ServletException
 class IOException
 class IllegalArgumentException
 class HttpServlet
+
 
 ConfigServlet .. ServletException : throws
 ConfigServlet .. IOException : throws

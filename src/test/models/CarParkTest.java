@@ -3,6 +3,8 @@ package models;
 import interfaces.VehicleIF;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utilities.CustomerType;
+
 import java.util.regex.*;
 
 
@@ -21,7 +23,7 @@ class CarParkTest {
     @BeforeEach
     void init(){
         ph=new CarPark(new Config());
-        car=new Car(false,false,false,"K-AB-1234");
+        car=new Car(CustomerType.WOMEN,"K-AB-1234");
     }
 
     @Test
@@ -35,6 +37,7 @@ class CarParkTest {
         assertTrue(vehicle instanceof Car || vehicle instanceof Bike );
         assertTrue(vehicle.getLicensePlate().length()<=11&&vehicle.getLicensePlate().length()>=9);
         assertTrue(Pattern.matches("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]{1,3}"+"[-]"+"[ABCDEFGHIJKLMNOPQRSTUVWXYZ]{2}"+"[-]"+"[\\d]{4}",vehicle.getLicensePlate()));
+        assertTrue(vehicle.getType()==CustomerType.WOMEN||vehicle.getType()==CustomerType.BIKE||vehicle.getType()==CustomerType.CAR||vehicle.getType()==CustomerType.DISABLED||vehicle.getType()==CustomerType.LOCAL);
     }
 
     @Test
