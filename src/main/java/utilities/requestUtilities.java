@@ -29,40 +29,54 @@ public class requestUtilities {
         }
 
     }
-    public static void getContextParams(HttpServletRequest req) throws IOException{
-        ServletContext ctx = req.getServletContext();
-       Enumeration<String> attributeNames= ctx.getAttributeNames();
 
-       while(attributeNames.hasMoreElements()){
-           String attribute = attributeNames.nextElement();
-           System.out.println(attribute);
-       }
+    public static void getContextParams(HttpServletRequest req) throws IOException {
+        ServletContext ctx = req.getServletContext();
+        Enumeration<String> attributeNames = ctx.getAttributeNames();
+
+        while (attributeNames.hasMoreElements()) {
+            String attribute = attributeNames.nextElement();
+            System.out.println(attribute);
+        }
     }
-    public static void setContextParam(HttpServletRequest req){
-        if(checkAttributes(req)){
+
+    public static void setContextParam(HttpServletRequest req) {
+        if (checkAttributes(req)) {
             JsonObject Config = createJson(req);
             req.getServletContext().setAttribute("config", Config);
         }
     }
-    public static JsonObject createJson(HttpServletRequest req){
-            return Json.createObjectBuilder()
-                    .add("name", (String) req.getAttribute("name"))
-                    .add("lots", (int) req.getAttribute("totalLots"))
-                    .add("women", (int) req.getAttribute("womenLots"))
-                    .add("disabled", (int) req.getAttribute("disabledLots"))
-                    .add("local", (int) req.getAttribute("localLots"))
-                    .add("bike", (int) req.getAttribute("bikeLots"))
-                    .add("price", (double) req.getAttribute("price"))
-                    .build();
+
+    public static JsonObject createJson(HttpServletRequest req) {
+        return Json.createObjectBuilder()
+                .add("name", req.getParameter("name"))
+                .add("lots", Integer.parseInt(req.getParameter("totalLots")))
+                .add("women", Integer.parseInt(req.getParameter("womenLots")))
+                .add("disabled", Integer.parseInt(req.getParameter("disabledLots")))
+                .add("local", Integer.parseInt(req.getParameter("localLots")))
+                .add("bike", Integer.parseInt(req.getParameter("bikeLots")))
+                .add("price", Double.parseDouble(req.getParameter("price")))
+                .build();
     }
-    public static boolean checkAttributes(HttpServletRequest request){
-        return request.getAttribute("name") != null
-                && request.getAttribute("totalLots") != null
-                && request.getAttribute("womenLots") != null
-                && request.getAttribute("disabledLots") != null
-                && request.getAttribute("localLots") != null
-                && request.getAttribute("bikeLots") != null
-                && request.getAttribute("price") != null;
+
+    public static boolean checkAttributes(HttpServletRequest req) {
+        if (req.getParameter("name") != null
+                && Integer.parseInt(req.getParameter("totalLots")) >= 0
+                && Integer.parseInt(req.getParameter("womenLots")) >= 0
+                && Integer.parseInt(req.getParameter("disabledLots")) >= 0
+                && Integer.parseInt(req.getParameter("localLots")) >= 0
+                && Integer.parseInt(req.getParameter("bikeLots")) >= 0
+                && Double.parseDouble(req.getParameter("price")) >= 0) {
+            return Integer.parseInt(req.getParameter("totalLots")) >
+                    (Integer.parseInt(req.getParameter("womenLots")) +
+                            Integer.parseInt(req.getParameter("disabledLots")) +
+                            Integer.parseInt(req.getParameter("localLots")) +
+                            Integer.parseInt(req.getParameter("bikeLots"))
+                    );
+        }
+        return false;
+
+
     }
 }
 

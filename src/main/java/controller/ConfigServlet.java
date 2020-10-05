@@ -1,18 +1,13 @@
 package controller;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import static utilities.requestUtilities.*;
+import static utilities.requestUtilities.checkAttributes;
 
 /**
  * Author: Jannik Hausin
@@ -21,10 +16,15 @@ import static utilities.requestUtilities.*;
 @WebServlet(name = "ConfigServlet")
 public class ConfigServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        getRequestParams(req);
-        System.out.println(checkAttributes(req));;
-        //getContextParams(req);
+        if (checkAttributes(req)) {
+            res.setStatus(HttpServletResponse.SC_OK);
+            System.out.println("Works");
+
+        } else {
+            res.sendError(HttpServletResponse.SC_CONFLICT);
+        }
     }
+
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     }
 }

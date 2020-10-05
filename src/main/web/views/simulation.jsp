@@ -16,7 +16,12 @@
             font-family: 'Poppins', sans-serif;
             color: var(--secondary);
         }
-        .simulation-container{
+
+        button {
+            outline: none;
+        }
+
+        .simulation-container {
             background-color: var(--primary);
             animation: fade-in 1s;
             height: 90%;
@@ -24,19 +29,17 @@
             margin: 30px 30px 30px 0;
             clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
         }
-        .inner-container{
+
+        .inner-container {
             text-align: center;
             margin: 20px;
             font-size: 36px;
         }
-        #config{
-
-        }
     </style>
     <script>
-        function showConfig(){
+        function showConfig() {
             let cfg = document.getElementById("config");
-            cfg.style.display="block";
+            cfg.style.display = "block";
         }
     </script>
 </head>
