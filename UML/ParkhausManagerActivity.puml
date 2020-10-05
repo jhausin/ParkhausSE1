@@ -1,0 +1,24 @@
+@startuml
+(*)if "" then
+--> [Manager fährt rein] "Manager zieht ein Ticket"
+--> Manager parkt
+if "Manager will Ticket bezahlen"
+--> [Bar] "Manager zahlt Bar"
+--> Manager fährt raus
+else
+--> [mit Karte] "Manager zahlt mit Karte"
+endif
+--> Manager fährt raus
+-->(*)
+
+else
+--> [guckt in das System] "Manager lässt Statistiken anzeigen"
+if ""
+--> wertet Statisktiken aus
+--> passt Werte an
+--> (*)
+else
+-->(*)
+endif
+
+@enduml
