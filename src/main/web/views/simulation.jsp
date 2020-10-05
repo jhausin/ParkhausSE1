@@ -11,6 +11,12 @@
           href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
           crossorigin="anonymous">
+    <script
+            src="http://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous">
+
+    </script>
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -37,10 +43,41 @@
         }
     </style>
     <script>
-        function showConfig() {
-            let cfg = document.getElementById("config");
-            cfg.style.display = "block";
+        let sim;
+        const cars = []
+
+        function simulate() {
+            $.ajax({
+                url: "http://localhost:8080/SimulationServlet",
+                type: 'POST',
+                success: (result) => {
+                    if (result) {
+                        cars.push(result);
+                        var trHtml = "";
+                        $.each(result, (i, car) => {
+                            trHtml += "<tr><td>" + car.CustomerType +
+                        })
+                    }
+                },
+                complete: () => {
+                    sim = setTimeout(simulate, 2000)
+                }
+            })
         }
+
+        $(document).ready(() => {
+            $('#form').submit((event) => {
+                event.preventDefault();
+                $('#start').hide();
+                simulate();
+            })
+            $('#stop').on('click', () => {
+                clearTimeout(sim);
+                $('#start').show()
+            })
+        });
+
+
     </script>
 </head>
 <body>
@@ -52,21 +89,15 @@
 
         </div>
         <div class="start-container">
-            <form action="${pageContext.request.contextPath}/simulationServlet" method="post">
-                <button type="submit" onclick="">Start Simulation</button>
+            <form id="form" class="simulation-form">
+                <button id="start" type="submit">Start Simulation</button>
             </form>
         </div>
-        <div id="config">
-            <c:choose>
-                <c:when test="${empty requestScope.config}">
-                    Bitte Parkhaus konfigurieren.
-                </c:when>
-                <c:otherwise>
-                    Press Start to begin...
-                </c:otherwise>
-            </c:choose>
-        </div>
+        <button id="stop">Stop Simulation</button>
+        <table>
+        </table>
     </div>
+</div>
 </div>
 
 </body>

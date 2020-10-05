@@ -1,15 +1,16 @@
 package models;
 
 import interfaces.VehicleIF;
+import utilities.CustomerType;
 
 public class Bike implements VehicleIF {
 
     Ticket t;
-    boolean local;
+    CustomerType type;
     String licensePlate;
 
-    public Bike(boolean l, String lp){
-        this.local = l;
+    public Bike(CustomerType x, String lp) {
+        this.type = x;
         this.licensePlate = lp;
         this.t = new Ticket(lp);
     }
@@ -19,22 +20,14 @@ public class Bike implements VehicleIF {
         return licensePlate;
     }
 
-    public boolean isLocal() {
-        return this.local;
+    @Override
+    public CustomerType getType() {
+        return this.type;
     }
+
     public Ticket getTicket() {
         return this.t;
     }
 
-    public boolean isBike() {
-        return true;
-    }
 
-    public boolean isDisabled() {
-        return false;
-    }
-
-    public boolean isWoman() {
-        return false;
-    }
 }

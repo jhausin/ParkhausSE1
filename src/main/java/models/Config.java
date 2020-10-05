@@ -1,6 +1,5 @@
 package models;
 
-import javax.json.Json;
 import javax.json.JsonObject;
 
 /**
@@ -19,36 +18,38 @@ public class Config {
     /**
      * Default Configuration
      */
-    public Config(){
+    public Config() {
         this.name = "Car Park";
         this.totalLots = 40;
-        this.womenLots = 5;
-        this.disabledLots = 2;
-        this.localLots = 8;
+        this.womenLots = 6;
+        this.disabledLots = 3;
+        this.localLots = 12;
         this.bikeLots = 4;
         this.price = 1.5;
     }
+
     public Config(JsonObject config) throws IllegalArgumentException {
-        if(validateConfig(config)) {
+        if (validateConfig(config)) {
             this.name = config.getString("name");
             this.totalLots = config.getInt("lots");
             this.womenLots = config.getInt("women");
             this.disabledLots = config.getInt("disabled");
             this.localLots = config.getInt("local");
             this.bikeLots = config.getInt("bike");
-            this.price = Double.parseDouble(config.getString("price"));
-        }
-        else{
+            this.price = config.getJsonNumber("price").doubleValue();
+        } else {
             throw new IllegalArgumentException("Configuration invalid, please provide a valid configuration.");
         }
     }
-    public boolean validateConfig(JsonObject config){
+
+    public boolean validateConfig(JsonObject config) {
         return config.getInt("lots")
                 > (config.getInt("women")
                 + config.getInt("disabled")
                 + config.getInt("local"));
     }
-    public int getValue(String type) throws IllegalArgumentException{
+
+    public int getValue(String type) throws IllegalArgumentException {
         return switch (type) {
             case "total" -> this.totalLots;
             case "women" -> this.womenLots;
@@ -58,18 +59,20 @@ public class Config {
             default -> throw new IllegalArgumentException("Unexpected value: " + type);
         };
     }
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
-    public Double getPrice(){
+
+    public Double getPrice() {
         return this.price;
     }
 
-    public String toString(){
+    public String toString() {
         return "Name: " + this.name + "\n"
                 + "Anzahl Parkplätze gesamt: " + this.totalLots + "\n"
                 + "Frauenparkplätze: " + this.womenLots + "\n"
-                + "Behindertenparkplätze: " +  this.disabledLots + "\n"
+                + "Behindertenparkplätze: " + this.disabledLots + "\n"
                 + "Anwohnerparkplätze: " + this.localLots + "\n"
                 + "Parkplätze für Motorräder: " + this.bikeLots + "\n"
                 + "Preis pro Stunde: " + this.price + "€";

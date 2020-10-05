@@ -1,16 +1,13 @@
 package interfaces;
 
 import models.Ticket;
+import utilities.CustomerType;
 
 public interface VehicleIF {
+    String getLicensePlate();
 
+    CustomerType getType();
 
-
-     String getLicensePlate();
-     boolean isLocal();
-     Ticket getTicket();
-     boolean isBike();
-     boolean isDisabled();
-     boolean isWoman();
+    Ticket getTicket();
 
 }

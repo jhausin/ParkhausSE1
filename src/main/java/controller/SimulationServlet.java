@@ -1,11 +1,10 @@
 package controller;
 
+import interfaces.VehicleIF;
+import models.CarPark;
 import models.Config;
-import static utilities.requestUtilities.*;
 
-import javax.json.Json;
 import javax.json.JsonObject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,30 +12,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
+import java.util.Random;
+
+import static utilities.responseUtilities.createVehicleAsJson;
 
 @WebServlet(name = "SimulationServlet")
 public class SimulationServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Config cfg;
-        if(checkAttributes(request)) {
-            cfg = new Config(createJson(request));
+    CarPark carPark;
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        ServletContext ctx = req.getServletContext();
+        carPark = (CarPark) ctx.getAttribute("carPark");
+        if (carPark == null) {
+            carPark = new CarPark(new Config());
+            System.out.println(carPark);
+            ctx.setAttribute("carPark", carPark);
         }
-        else{
-            cfg = new Config();
+        Random rand = new Random();
+        if (rand.nextInt(2) == 0) {
+            carPark.enter();
+            System.out.print("Enter, ");
+        } else {
+
+            VehicleIF v = carPark.leaveRandom();
+            if (v != null) {
+                JsonObject car = createVehicleAsJson(v);
+                System.out.println(car);
+                res.setContentType("application/json");
+                res.getWriter().print(car);
+                res.getWriter().flush();
+            }
         }
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        request.setAttribute("config", cfg);
-
-        RequestDispatcher view = request.getRequestDispatcher("simulation.jsp");
-        view.forward(request,response);
-
+        res.setStatus(HttpServletResponse.SC_OK);
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-
 }
