@@ -1,5 +1,5 @@
 package utilities;
 
 public enum CustomerType {
-    CAR, BIKE, DISABLED, WOMEN, LOCAL
+    USUAL, BIKE, DISABLED, WOMEN, LOCAL //USUAL, WOMEN, DISABLED, LOCAL, BIKE vllt besser
 }

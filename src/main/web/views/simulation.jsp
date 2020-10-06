@@ -48,11 +48,12 @@
             margin: 0 10% 0 15%;
             font-size: 36px;
             width: 75%;
+            height: 80%;
         }
     </style>
     <script>
         let sim;
-        const cars = []
+        const cars = [];
 
         function simulate() {
             $.ajax({
@@ -71,19 +72,41 @@
                     }
                 },
                 complete: () => {
-                    sim = setTimeout(simulate, 1000)
+                    sim = setTimeout(simulate, 100)
                 }
             })
         }
 
+        function resetSimulation() {
+            $.ajax({
+                url: "http://localhost:8080/SimulationServlet",
+                type: "POST",
+                data: {
+                    "cmd": "reset"
+                },
+                success: (result) => {
+                    $('#car-table').find("tr:gt(0)").remove();
+                }
+            });
+
+
+        }
+
         $(document).ready(() => {
+
             $('#start').on('click', () => {
                 $('#start').hide();
+                $('#stop').show();
+                $('#reset').show();
                 simulate();
             })
-            $('#stop').on('click', () => {
+            $('#stop').hide().on('click', () => {
                 clearTimeout(sim);
+                $('#stop').hide();
                 $('#start').show()
+            })
+            $('#reset').hide().on('click', () => {
+                resetSimulation();
             })
         });
 
@@ -95,19 +118,20 @@
 <div class="simulation-container">
     <div class="control-container">
         <h1>Simulation</h1>
-        <button id="start">Start Simulation</button>
+        <button id="start" class="btn btn-primary">Start Simulation</button>
 
-        <button id="stop">Stop Simulation</button>
+        <button id="stop" class="btn btn-danger">Stop Simulation</button>
+        <button id="reset" class="btn btn-warning">Reset</button>
     </div>
     <div class="table-container">
-        <table id="car-table" class=" table">
+        <table id="car-table" class="table table-fixed">
             <thead>
             <tr>
                 <th scope="col">Customer Type</th>
                 <th scope="col">License Plate</th>
                 <th scope="col">Entry Date</th>
                 <th scope="col">Exit Date</th>
-                <th scope="col">Price</th>
+                <th scope="col">Price in €</th>
                 <th scope="col">Ticket ID</th>
             </tr>
             </thead>

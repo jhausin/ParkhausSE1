@@ -39,14 +39,5 @@
         <servlet-name>Simulation</servlet-name>
         <url-pattern>/simulation</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ShowConfig</servlet-name>
-        <jsp-file>/showConfig.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ShowConfig</servlet-name>
-        <url-pattern>/show-config</url-pattern>
-    </servlet-mapping>
 </web-app>
 

@@ -11,15 +11,14 @@ public class Ticket {
     public String licensePlate;
     private boolean isPaid = false;
     private int ticketID;
-    int numberOfTickets;
+    public int numberOfTickets;
     private double price;
 
 
-    public Ticket(String lp) {
+    public Ticket(String lp, int id) {
         this.licensePlate = lp;
         this.entrance = new Date();
-        numberOfTickets++;
-        this.ticketID = numberOfTickets;
+        this.ticketID = id;
     }
 
     public boolean isPaid() {

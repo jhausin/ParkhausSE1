@@ -18,6 +18,7 @@ public class CarPark {
     private int freeWomanSpaces;
     private int freeBikeSpaces;
     public Config cfg;
+    private int numberOfTickets;
 
 
     public CarPark(Config c) { //muss vorm aufruf getestet werden ob gesamt größer als die einzelnen sind
@@ -50,7 +51,7 @@ public class CarPark {
                 park[i] = new ParkingLot(CustomerType.BIKE);
                 numbOfBike--;
             } else {
-                park[i] = new ParkingLot(CustomerType.CAR);
+                park[i] = new ParkingLot(CustomerType.USUAL);
             }
         }
         this.price = c.getPrice();
@@ -61,9 +62,9 @@ public class CarPark {
     public VehicleIF createVehicle(String lp, CustomerType x) {
         //return isBike ? new Bike(l, lp) : new Car(w,d,l,lp);
         if (x == CustomerType.BIKE) {
-            return new Bike(CustomerType.BIKE, lp);
+            return new Bike(CustomerType.BIKE, lp, ++numberOfTickets);
         } else {
-            return new Car(x, lp);
+            return new Car(x, lp, ++numberOfTickets);
         }
     }
 
@@ -108,11 +109,11 @@ public class CarPark {
 
 
         return switch (rand.nextInt(5)) {
-            case 0 -> new Bike(CustomerType.BIKE, lp);
-            case 1 -> new Car(CustomerType.WOMEN, lp);
-            case 2 -> new Car(CustomerType.DISABLED, lp);
-            case 3 -> new Car(CustomerType.LOCAL, lp);
-            case 4 -> new Car(CustomerType.CAR, lp);
+            case 0 -> new Bike(CustomerType.BIKE, lp, ++numberOfTickets);
+            case 1 -> new Car(CustomerType.WOMEN, lp, ++numberOfTickets);
+            case 2 -> new Car(CustomerType.DISABLED, lp, ++numberOfTickets);
+            case 3 -> new Car(CustomerType.LOCAL, lp, ++numberOfTickets);
+            case 4 -> new Car(CustomerType.USUAL, lp, ++numberOfTickets);
             default -> null;
         };
 
@@ -182,9 +183,9 @@ public class CarPark {
 
                 }
             }
-            case CAR: {
+            case USUAL: {
                 for (int i = temp; i < cfg.getValue("total"); i++) {
-                    if (this.park[i].isEmpty() && this.park[i].type == CustomerType.CAR) {
+                    if (this.park[i].isEmpty() && this.park[i].type == CustomerType.USUAL) {
                         park[i].addVehicle(v);
                         freeCarSpaces--;
                         return;
@@ -289,10 +290,6 @@ public class CarPark {
         public void addVehicle(VehicleIF v) {
             this.vehicle = v;
         }
-    }
-
-    public String toString() {
-        return "Funzt";
     }
 
     public int getFreeSpaces() {

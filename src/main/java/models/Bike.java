@@ -9,10 +9,10 @@ public class Bike implements VehicleIF {
     CustomerType type;
     String licensePlate;
 
-    public Bike(CustomerType x, String lp) {
+    public Bike(CustomerType x, String lp, int id) {
         this.type = x;
         this.licensePlate = lp;
-        this.t = new Ticket(lp);
+        this.t = new Ticket(lp, id);
     }
 
 
