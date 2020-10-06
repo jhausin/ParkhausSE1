@@ -9,7 +9,6 @@
           <element id="library" level="application" name="all" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Java EE 6-Java EE 6" />
           <element id="library" level="project" name="javax.json:javax.json-api:1.1.4" />
           <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter:5.7.0-RC1" />
           <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-api:5.7.0-RC1" />
@@ -28,6 +27,11 @@
           <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.7.0" />
           <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-engine:1.7.0" />
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+        </element>
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="lib">
+            <element id="library" level="application" name="Java EE 6-Java EE 6" />
+          </element>
         </element>
       </element>
     </root>

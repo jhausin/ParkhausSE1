@@ -70,7 +70,6 @@ class CarPark{
     +getFreeBikeSpaces(): int
     +getPrice(): double
     +getParkinglots(): int
-    +toString(): String
     +getFreeSpaces(): int
 
 }
