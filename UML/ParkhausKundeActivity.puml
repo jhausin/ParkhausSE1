@@ -1,0 +1,16 @@
+@startuml
+(*)if "" then
+--> [Kunde fährt rein] "Kunde zieht ein Ticket"
+--> Kunde parkt
+if "Kunde will Ticket bezahlen"
+--> [Bar] "Kunde zahlt Bar"
+--> Kunde fährt raus
+else
+--> [mit Kart] "Kunde zahlt mit Karte"
+endif
+--> Kunde fährt raus
+-->(*)
+
+else
+-->(*)
+@enduml
