@@ -5,6 +5,10 @@ import interfaces.VehicleIF;
 import javax.json.Json;
 import javax.json.JsonObject;
 
+/**
+ * Author: Jannik Hausin
+ */
+
 public class responseUtilities {
     public static JsonObject createVehicleAsJson(VehicleIF v) {
         return Json.createObjectBuilder()

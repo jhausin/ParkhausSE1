@@ -9,11 +9,11 @@ public class Car implements VehicleIF {
     private Ticket t;
     String licensePlate;
 
-    public Car(CustomerType x, String plate) {
+    public Car(CustomerType x, String plate, int id) {
 
         this.type = x;
         this.licensePlate = plate;
-        this.t = new Ticket(licensePlate);
+        this.t = new Ticket(licensePlate, id);
 
     }
 
