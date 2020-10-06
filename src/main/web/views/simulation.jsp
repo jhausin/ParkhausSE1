@@ -29,11 +29,19 @@
             outline: none;
         }
 
+        hr {
+            width: 10%;
+        }
+
         .simulation-container {
             background-color: var(--primary);
             height: 100%;
             width: 60%;
             clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        span {
+            width: 30%;
         }
 
         .control-container {
@@ -46,14 +54,49 @@
             margin: 0 10% 0 15%;
             font-size: 36px;
             width: 75%;
-            height: 80%;
+            height: 50%;
+            overflow-y: scroll;
+        }
+
+        thead {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .h-divider {
+            margin: 0 0 0 15%;
+        }
+
+        .h-divider hr {
+            border: none;
+            background-color: grey;
+            height: 1px;
+        }
+
+        .chart-button {
+            margin: 30px 10% 0 15%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .chart-container {
+            position: fixed;
+            top: 12.5%;
+            left: 12.5%;
+            z-index: 5;
+            background-color: white;
+            height: 75%;
+            width: 75%;
         }
 
         #config-div {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: space-between;
             width: 75%;
-            margin: 0 10% 0 10%;
+            margin: 0 10% 10px 15%;
             text-align: center;
         }
     </style>
@@ -142,6 +185,9 @@
             $('#reset').hide().on('click', () => {
                 resetSimulation();
             })
+            $('#chart-button').on('click', () => {
+                $('body').not($('#chart-container')).css("filter", "blur(2px)");
+            })
         });
 
 
@@ -157,9 +203,9 @@
         <button id="reset" class="btn btn-warning">Reset</button>
     </div>
     <div id="config-div">
-        <h6 id="carParkName"></h6>
-        <h6 id="carParkLots"></h6>
-        <h6 id="carParkPrice"></h6>
+        <span id="carParkName" class="badge badge-info"></span>
+        <span id="carParkLots" class="badge badge-info"></span>
+        <span id="carParkPrice" class="badge badge-info"></span>
     </div>
     <div class="table-container">
         <table id="car-table" class="table table-fixed">
@@ -177,6 +223,16 @@
             </tbody>
         </table>
     </div>
+    <div class="h-divider">
+        <hr>
+    </div>
+    <div class="chart-button">
+        <button id="chart-button" class="btn btn-primary">Show Charts</button>
+    </div>
+
+</div>
+<div id="chart-container" class="chart-container">
+    <h1>TEST</h1>
 </div>
 </body>
 </html>
