@@ -36,7 +36,7 @@
         .config-container {
             background-color: var(--primary);
             width: 60%;
-            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+            clip-path: polygon(12.5% 0, 100% 0, 100% 100%, 0% 100%);
         }
 
         .inner-container {

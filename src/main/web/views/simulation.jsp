@@ -31,10 +31,8 @@
 
         .simulation-container {
             background-color: var(--primary);
-            animation: fade-in 1s;
-            height: 90%;
-            width: 70%;
-            margin: 30px 30px 30px 0;
+            height: 100%;
+            width: 60%;
             clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
         }
 
@@ -50,22 +48,36 @@
             width: 75%;
             height: 80%;
         }
+
+        #config-div {
+            display: flex;
+            flex-direction: column;
+            width: 75%;
+            margin: 0 10% 0 10%;
+            text-align: center;
+        }
     </style>
     <script>
-        let sim;
-        const cars = [];
+        let sim
+        let totalEarnings = 0;
+        const config = {
+            name: " ",
+            lots: 0,
+            price: 0,
+        };
+        const API_URL = "http://localhost:8080/SimulationServlet";
 
         function simulate() {
             $.ajax({
-                url: "http://localhost:8080/SimulationServlet",
+                url: API_URL,
                 type: 'POST',
-                success: (result) => {
-                    console.log(result);
-                    if (result) {
+                success: (res) => {
+                    console.log(res);
+                    if (res) {
                         let tableElement = "<tr>";
-                        for (let key in result) {
-                            if (result.hasOwnProperty(key))
-                                tableElement += "<td>" + result[key] + "</td>";
+                        for (let key in res) {
+                            if (res.hasOwnProperty(key))
+                                tableElement += "<td>" + res[key] + "</td>";
                         }
                         tableElement += "</tr>";
                         $('#car-table tbody').append(tableElement);
@@ -77,14 +89,35 @@
             })
         }
 
+        function getConfig() {
+            $.ajax({
+                url: API_URL,
+                type: "POST",
+                data: {
+                    "cmd": "config",
+                },
+                success: (res) => {
+                    console.log(res);
+                    if (res) {
+                        config.name = res["Parkhausname"];
+                        config.lots = Number(res["Parkplätze gesamt"]);
+                        config.price = parseFloat(res["Preis"]);
+                    }
+                    $('#carParkName').text("Parkhausname: " + config.name);
+                    $('#carParkLots').text("Freie Parkplätze: " + config.lots);
+                    $('#carParkPrice').text("Preis pro Stunde: " + config.price + "0€");
+                }
+            })
+        }
+
         function resetSimulation() {
             $.ajax({
-                url: "http://localhost:8080/SimulationServlet",
+                url: API_URL,
                 type: "POST",
                 data: {
                     "cmd": "reset"
                 },
-                success: (result) => {
+                success: (res) => {
                     $('#car-table').find("tr:gt(0)").remove();
                 }
             });
@@ -93,6 +126,7 @@
         }
 
         $(document).ready(() => {
+            getConfig();
 
             $('#start').on('click', () => {
                 $('#start').hide();
@@ -119,9 +153,13 @@
     <div class="control-container">
         <h1>Simulation</h1>
         <button id="start" class="btn btn-primary">Start Simulation</button>
-
         <button id="stop" class="btn btn-danger">Stop Simulation</button>
         <button id="reset" class="btn btn-warning">Reset</button>
+    </div>
+    <div id="config-div">
+        <h6 id="carParkName"></h6>
+        <h6 id="carParkLots"></h6>
+        <h6 id="carParkPrice"></h6>
     </div>
     <div class="table-container">
         <table id="car-table" class="table table-fixed">

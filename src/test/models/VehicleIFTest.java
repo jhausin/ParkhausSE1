@@ -16,23 +16,23 @@ class VehicleIFTest {
     VehicleIF bike;
 
     @BeforeEach
-    void init(){
-        bike=new Bike(CustomerType.BIKE,"K-AB-1234");
+    void init() {
+        bike = new Bike(CustomerType.BIKE, "K-AB-1234", 1);
     }
 
     @Test
-    void getLicensePlate(){
-        assertEquals("K-AB-1234",bike.getLicensePlate());
+    void getLicensePlate() {
+        assertEquals("K-AB-1234", bike.getLicensePlate());
     }
 
     @Test
-    void getType(){
-        assertEquals(CustomerType.BIKE,bike.getType());
+    void getType() {
+        assertEquals(CustomerType.BIKE, bike.getType());
     }
 
     @Test
-    void getTicket(){
-        assertEquals(bike.getLicensePlate(),bike.getTicket().licensePlate);
+    void getTicket() {
+        assertEquals(bike.getLicensePlate(), bike.getTicket().licensePlate);
     }
 
 

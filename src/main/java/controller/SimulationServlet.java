@@ -15,12 +15,14 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
 
+import static utilities.configFormat.formatConfig;
 import static utilities.responseUtilities.createVehicleAsJson;
 
 /**
  * Author: Jannik Hausin
  */
 @WebServlet(name = "SimulationServlet")
+
 public class SimulationServlet extends HttpServlet {
     CarPark carPark;
 
@@ -37,6 +39,19 @@ public class SimulationServlet extends HttpServlet {
             }
             ctx.setAttribute("carPark", carPark);
             res.setStatus(HttpServletResponse.SC_OK);
+        } else if (req.getParameter("cmd") != null && req.getParameter("cmd").equals("config")) {
+            if (ctx.getAttribute("config") != null) {
+                Config cfg = (Config) ctx.getAttribute("config");
+                res.setContentType("application/json");
+                res.getWriter().print(formatConfig(cfg));
+            } else {
+                ctx.setAttribute("config", new Config());
+                Config cfg = (Config) ctx.getAttribute("config");
+
+                res.setContentType("application/json");
+                res.getWriter().print(formatConfig(cfg));
+            }
+            res.getWriter().flush();
         } else {
             carPark = (CarPark) ctx.getAttribute("carPark");
             if (carPark == null) {
