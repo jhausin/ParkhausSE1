@@ -21,7 +21,7 @@ import static utilities.configFormat.formatConfig;
 import static utilities.responseUtilities.createVehicleAsJson;
 
 /**
- * Author: Jannik Hausin
+ * Author: Jannik Hausin, Axel Kirst
  */
 @WebServlet(name = "SimulationServlet")
 

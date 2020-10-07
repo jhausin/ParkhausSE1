@@ -1,7 +1,7 @@
 package utilities;
 
 /**
- * Author: Jannik Hausin
+ * Author: Joshua Bäuml
  */
 public enum CustomerType {
     USUAL, BIKE, DISABLED, WOMEN, LOCAL

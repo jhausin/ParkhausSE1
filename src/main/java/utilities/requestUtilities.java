@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 /*
- * Author: Jannik Hausin
+ * Author: Jannik Hausin, Axel Kirst
  */
 public class requestUtilities {
     static public void getRequestParams(HttpServletRequest req) throws IOException {

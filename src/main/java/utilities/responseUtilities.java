@@ -6,7 +6,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 /*
- * Author: Jannik Hausin
+ * Author: Jannik Hausin, Joshua Bäuml
  */
 
 public class responseUtilities {

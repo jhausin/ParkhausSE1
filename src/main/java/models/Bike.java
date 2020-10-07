@@ -4,7 +4,7 @@ import interfaces.VehicleIF;
 import utilities.CustomerType;
 
 /*
- * Author: Axel Kirst
+ * Author: Joshua Bäuml
  */
 
 public class Bike implements VehicleIF {

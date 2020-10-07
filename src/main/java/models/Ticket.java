@@ -13,7 +13,7 @@ public class Ticket {
     Date entrance;
     Date exit;
     public String licensePlate;
-    private boolean isPaid = false;
+    public boolean isPaid = false;
     private int ticketID;
     public int numberOfTickets;
     private double price;
@@ -54,4 +54,5 @@ public class Ticket {
     public int getDuration() {
         return this.duration;
     }
+
 }

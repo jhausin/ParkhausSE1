@@ -3,7 +3,7 @@ package models;
 import interfaces.VehicleIF;
 import utilities.CustomerType;
 /*
- * Axel Kirst
+ *  Author: Joshua Bäuml
  */
 
 public class Car implements VehicleIF {
@@ -17,7 +17,7 @@ public class Car implements VehicleIF {
         this.type = x;
         this.licensePlate = plate;
         this.t = new Ticket(licensePlate, id);
-
+        if (this.type.equals(CustomerType.LOCAL)) t.isPaid = true;
     }
 
     public String getLicensePlate() {

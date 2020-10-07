@@ -11,7 +11,7 @@ import java.util.regex.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Author: Joshua Bäuml
+ * Author: Joshua Bäuml, Jannik Hausin
  */
 
 class CarParkTest {

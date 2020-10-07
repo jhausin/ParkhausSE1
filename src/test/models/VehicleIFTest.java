@@ -8,7 +8,7 @@ import utilities.CustomerType;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Author: Joshua Bäuml
+ * Author: Axel Kirst
  */
 
 class VehicleIFTest {

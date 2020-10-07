@@ -3,11 +3,13 @@ package utilities;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * Author: Joshua Bäuml
+ */
 class requestUtilitiesTest {
 
     @BeforeEach
-    void init(){
+    void init() {
 
     }
 
