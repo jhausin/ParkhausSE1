@@ -7,9 +7,9 @@ Wir haben versucht sowohl Front-End als auch Back-End selbst zu entwickeln.
 
 ## Autoren
 
-* **Axel Kirst
-* **Joshua Bäuml
-* **Jannik Hausin
+* **Axel Kirst**
+* **Joshua Bäuml**
+* **Jannik Hausin**
  
 | Artefakte                                                     | Links                                         |
 |---------------------------------------------------------------|-----------------------------------------------|
@@ -37,5 +37,4 @@ Wir haben versucht sowohl Front-End als auch Back-End selbst zu entwickeln.
 
 ### Zusätzliche Informationen
 *Wir sind bei unserem alten Projekt auf viele Fehler gestoßen, welche wir nicht mehr vor der Deadline beheben konnten. 
-Deshalb haben wir ein neues Projekt erstellt, bei dem wir alles ohne das Digital Makerspace realisieren.
-*
+Deshalb haben wir ein neues Projekt erstellt, bei dem wir alles ohne das Digital Makerspace realisieren.*
