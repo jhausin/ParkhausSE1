@@ -17,8 +17,8 @@
             src="http://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
             crossorigin="anonymous">
-
     </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -67,7 +67,7 @@
 
         .earnings {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-evenly;
             margin: 30px 10% 0 15%;
 
         }
@@ -89,7 +89,7 @@
         }
 
         .chart-container {
-            display: none;
+            display: flex;
             position: fixed;
             top: 12.5%;
             left: 12.5%;
@@ -101,15 +101,18 @@
             -webkit-box-shadow: 0 0 31px -5px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: 0 0 31px -5px rgba(0, 0, 0, 0.75);
             box-shadow: 0 0 31px -5px rgba(0, 0, 0, 0.75);
+            justify-content: space-evenly;
+            flex-direction: row;
         }
 
 
         .chart-container #close {
             position: absolute;
             right: 5px;
-            top: 5px;
+            top: 0;
             border: none;
             background: none;
+            font-size: 30px;
         }
 
         #config-div {
@@ -140,6 +143,7 @@
             price: 0,
             earnings: 0,
             totalCustomers: 0,
+            totalDuration: 0,
             customers: {
                 usual: 0,
                 women: 0,
@@ -165,14 +169,16 @@
                             for (let key in res) {
                                 if (res.hasOwnProperty(key)) {
                                     if (key === "freeSpaces") {
-                                        park.lots = res["freeSpaces"];
+                                        park.lots = res[key];
                                         $('#carParkLots').text("Freie Parkplätze: " + park.lots);
+                                    } else if (key === "duration") {
+                                        park.totalDuration += Number(res[key]);
                                     } else {
                                         if (res[key] === "USUAL") park.customers.usual++;
                                         else if (res[key] === "WOMEN") park.customers.women++;
                                         else if (res[key] === "DISABLED") park.customers.disabled++;
                                         else if (res[key] === "LOCAL") park.customers.local++;
-                                        else park.customers.bike++;
+                                        else if (res[key] === "BIKE") park.customers.bike++;
                                         tableElement += "<td>" + res[key] + "</td>";
                                     }
                                 }
@@ -180,11 +186,12 @@
                             tableElement += "</tr>";
                             $('#car-table tbody').append(tableElement);
                             //console.log(park.totalCustomers)
+                            $('#totalCustomer').text("Kunden insgesamt: " + park.totalCustomers);
                             $('#earnings').text("Einnahmen: " + park.earnings + "€");
                         }
                     },
                     complete: () => {
-                        sim = setTimeout(simulate, 1000)
+                        sim = setTimeout(simulate, 500)
                     }
                 }
             )
@@ -208,6 +215,8 @@
                     $('#carParkLots').text("Freie Parkplätze: " + park.lots);
                     $('#carParkPrice').text("Preis pro Stunde: " + park.price + "0€");
                     $('#earnings').text("Einnahmen: " + park.earnings + "€");
+                    $('#totalCustomer').text("Kunden insgesamt: " + park.totalCustomers);
+
                 }
             })
         }
@@ -222,6 +231,10 @@
                 success: (res) => {
                     $('#car-table').find("tr:gt(0)").remove();
                     park.earnings = 0;
+                    for (let key in park.customers) {
+                        park.customers[key] = 0;
+                    }
+                    park.totalCustomers = 0;
                     getConfig();
                 }
             });
@@ -229,8 +242,46 @@
 
         }
 
+        function plotPieChart() {
+            const data = [{
+                values: [
+                    park.customers.usual,
+                    park.customers.women,
+                    park.customers.disabled,
+                    park.customers.local,
+                    park.customers.bike
+                ],
+                labels: ["USUAL", "WOMEN", "DISABLED", "LOCAL", "BIKE"],
+                type: "pie"
+            }]
+            const layout = {
+                height: 600,
+                width: 600,
+                title: "Kundentyp",
+            }
+            Plotly.newPlot("customer-type-chart", data, layout);
+        }
+
+        function plotBarChart() {
+            const avgEarnings = park.earnings / park.totalCustomers;
+            const avgDuration = park.totalDuration / park.totalCustomers;
+
+            const data = [{
+                x: ["Durschnittliche Parkkosten", "Durschnittliche Parkdauer"],
+                y: [avgEarnings, avgDuration],
+                type: "bar",
+            }]
+            const layout = {
+                height: 600,
+                width: 600,
+                title: "Statistik",
+            }
+            Plotly.newPlot("statistics-bar-chart", data, layout);
+        }
+
         $(document).ready(() => {
             getConfig();
+            resetSimulation();
 
             $('#start').on('click', () => {
                 $('#start').hide();
@@ -249,6 +300,8 @@
                 resetSimulation();
             })
             $('#chart-button').hide().on('click', () => {
+                plotPieChart();
+                plotBarChart();
                 $('#chart-container').show();
                 $('.blurred').show();
             })
@@ -256,6 +309,7 @@
                 $('#chart-container').hide();
                 $('.blurred').hide();
             })
+            $('#chart-container').hide();
         });
 
 
@@ -295,6 +349,7 @@
         <hr>
     </div>
     <div class="earnings">
+        <span id="totalCustomer" class="badge badge-secondary"></span>
         <span id="earnings" class="badge badge-success"></span>
     </div>
     <div class="chart-button">
@@ -304,7 +359,10 @@
 </div>
 <div id="chart-container" class="chart-container">
     <button id="close"><span aria-hidden="true">&times;</span></button>
-    <h1>TEST</h1>
+    <div id="customer-type-chart">
+    </div>
+    <div id="statistics-bar-chart">
+    </div>
 </div>
 <div class="blurred">
 

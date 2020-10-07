@@ -3,6 +3,10 @@ package models;
 import interfaces.VehicleIF;
 import utilities.CustomerType;
 
+/*
+ * Author: Axel Kirst
+ */
+
 public class Bike implements VehicleIF {
 
     Ticket t;
@@ -19,7 +23,7 @@ public class Bike implements VehicleIF {
     public String getLicensePlate() {
         return licensePlate;
     }
-    
+
     public CustomerType getType() {
         return this.type;
     }

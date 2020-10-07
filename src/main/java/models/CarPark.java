@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
 
+/*
+ * Author: Axel Kirst
+ */
 public class CarPark {
 
     public String name;

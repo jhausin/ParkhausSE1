@@ -2,6 +2,9 @@ package models;
 
 import interfaces.VehicleIF;
 import utilities.CustomerType;
+/*
+ * Axel Kirst
+ */
 
 public class Car implements VehicleIF {
 
@@ -20,7 +23,7 @@ public class Car implements VehicleIF {
     public String getLicensePlate() {
         return this.licensePlate;
     }
-    
+
     public CustomerType getType() {
         return this.type;
     }

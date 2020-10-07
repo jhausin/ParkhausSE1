@@ -5,6 +5,9 @@ import models.Config;
 import javax.json.Json;
 import javax.json.JsonObject;
 
+/*
+ * Author: Jannik Hausin
+ */
 public class configFormat {
     public static JsonObject formatConfig(Config cfg) {
         return Json.createObjectBuilder()

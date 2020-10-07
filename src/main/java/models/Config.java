@@ -2,7 +2,7 @@ package models;
 
 import javax.json.JsonObject;
 
-/**
+/*
  * Author: Jannik Hausin
  */
 
@@ -15,7 +15,7 @@ public class Config {
     private int bikeLots;
     private double price;
 
-    /**
+    /*
      * Default Configuration
      */
     public Config() {

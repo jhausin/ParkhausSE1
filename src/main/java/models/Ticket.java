@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+/**
+ * Author: Axel Kirst
+ */
+
 public class Ticket {
     Date entrance;
     Date exit;
@@ -13,6 +17,7 @@ public class Ticket {
     private int ticketID;
     public int numberOfTickets;
     private double price;
+    private int duration;
 
 
     public Ticket(String lp, int id) {
@@ -26,7 +31,8 @@ public class Ticket {
     }
 
     public void payTicket(double p) {
-        this.price = (int) (exit.getTime() - entrance.getTime()) / 1000 * p;
+        this.duration = (int) (exit.getTime() - entrance.getTime()) / 1000;
+        this.price = duration * p;
     }
 
     public int getTicketID() {
@@ -43,5 +49,9 @@ public class Ticket {
 
     public double getPrice() {
         return this.price;
+    }
+
+    public int getDuration() {
+        return this.duration;
     }
 }

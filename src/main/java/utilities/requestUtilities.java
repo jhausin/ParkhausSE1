@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Enumeration;
 
-/**
+/*
  * Author: Jannik Hausin
  */
 public class requestUtilities {
