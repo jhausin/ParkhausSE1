@@ -1,7 +1,9 @@
+/**
+*Author: Joshua Bäuml
+*/
 @startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+Kunde -> Browser: click
+Browser -> Servlet: request()
+Servlet --> Browser: response()
+Browser -> Kunde: Visualsierung
 @enduml

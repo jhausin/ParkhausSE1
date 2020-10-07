@@ -6,12 +6,12 @@
 left to right direction
 
 class ConfigServlet{
-    #doPost(request: HttpServletRequest, response: HttpServletResponse): void
+    #doPost(req: HttpServletRequest, res: HttpServletResponse): void
 }
 
 class SimulationServlet{
-    #doPost(request: HttpServletRequest, response: HttpServletResponse): void
-    #doGet(request: HttpServletRequest, response: HttpServletResponse): void
+    #doPost(req: HttpServletRequest, res: HttpServletResponse): void
+
 }
 
 interface VehicleIF{
@@ -26,7 +26,7 @@ class Bike{
     type: CustomerType
     licensePlate: String
 
-    +Bike(x: CustomerType, lp: String)
+    +Bike(x: CustomerType, lp: String,id: int)
     +getLicensePlate(): String
     +getType(): CustomerType
     +getTicket(): Ticket
@@ -38,14 +38,14 @@ class Car{
         type: CustomerType
         licensePlate: String
 
-        +Bike(x: CustomerType, lp: String)
+        +Bike(x: CustomerType, plate: String, id: int)
         +getLicensePlate(): String
         +getType(): CustomerType
         +getTicket(): Ticket
 }
 
 class CarPark{
-    -name: String
+    +name: String
     -park: ParkingLot[]
     -price: double
     -freeCarSpaces: int
@@ -54,6 +54,7 @@ class CarPark{
     -freeWomanSpaces: int
     -freeBikeSpaces: int
     +cfg: Config
+    -numberOfTickets: int
 
     +CarPark(c: Config)
     +createVehicle(lp: String, x: CustomerType): VehicleIF
@@ -109,8 +110,9 @@ class Ticket{
     +licensePlat: String
     -isPaid: boolean
     -ticketID: int
-    numberOfTickets: int
+    +numberOfTickets: int
     -price: double
+    -duration: int
 
     +Ticket(lp: String)
     +isPaid(): boolean
@@ -119,11 +121,16 @@ class Ticket{
     +getEntranceDate(): Date
     +getExitDate(): Date
     +getPrice(): double
+    +getDuration(): int
 
 }
 
+class configFormat{
+    {static}+ formatConfig(cfg: Config): JsonObject
+}
+
 enum CustomerType{
-    Car
+    USUAL
     BIKE
     DISABLED
     WOMEN
@@ -133,13 +140,46 @@ enum CustomerType{
 class requestUtilities{
     {static}+getRequestParams(req: HttpServletRequest): void
     {static}+getContextParams(req: HttpServletRequest): void
-    {static}+setCOntextParam(req: HttpServletRequest): void
+    {static}+setContextParam(req: HttpServletRequest): void
     {static}+createJson(req: HttpServletRequest): JsonObject
     {static}+checkAttributes(req: HttpServletRequest): boolean
 }
 
 class responseUtilities{
-    {static}+createVehicleAsJson(v: VehicleIF): JsonObject
+    {static}+createVehicleAsJson(v: VehicleIF, freeSpaces:int): JsonObject
+}
+
+class ConfigServletTest <<JUnit>>{
+    doPost(): void
+}
+
+class requestUtilitiesTest <<JUnit>>{
+    req: HttpServletRequest
+
+    init(): void
+    getRequestParams_(): void
+    getContextParams(): void
+    setContextParam(): void
+    createJson_(): void
+    checkAttributes(): void
+}
+
+class responseUtilitiesTest <<JUnit>>{
+    ph: CarPark
+    car: VehicleIF
+    v: JsonObject
+
+    init(): void
+    createVehicleAsJson_CustomerType(): void
+    createVehicleAsJson_Licenseplate(): void
+    createVehicleAsJson_EntryDate(): void
+    createVehicleAsJson_ExitDate(): void
+    createVehicleAsJson_Price(): void
+    createVehicleAsJson_TicketID(): void
+}
+
+class SimulationServletTest <<JUnit>>{
+    doPost(): void
 }
 
 class CarParkTest <<JUnit>>{
@@ -189,6 +229,10 @@ CarPark +-- ParkingLot
 
 VehicleIF .. VehicleIFTest: tests
 CarPark .. CarParkTest: tests
+requestUtilities .. requestUtilitiesTest: tests
+responseUtilities .. responseUtilitiesTest: tests
+ConfigServlet .. ConfigServletTest: tests
+SimulationServlet .. SimulationServletTest: tests
 
 
 @enduml

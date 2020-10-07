@@ -1,3 +1,6 @@
+/**
+*Author: Joshua Bäuml
+*/
 @startuml
 (*)if "" then
 --> [Kunde fährt rein] "Kunde zieht ein Ticket"
