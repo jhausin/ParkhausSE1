@@ -29,12 +29,12 @@ class responseUtilitiesTest {
         car = new Car(CustomerType.LOCAL, "K-AB-1234", 1);
         ph.enter(car);
         car = ph.leaveRandom();
-        v = createVehicleAsJson(car);
+        v = createVehicleAsJson(car, ph.getFreeSpaces());
     }
 
     @Test
     void createVehicleAsJson_CustomerType() {
-        assertTrue(v.getString("CustomerType") == "LOCAL");
+        assertEquals("LOCAL", v.getString("CustomerType"));
     }
 
     @Test

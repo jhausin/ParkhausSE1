@@ -19,8 +19,7 @@ public class Bike implements VehicleIF {
     public String getLicensePlate() {
         return licensePlate;
     }
-
-    @Override
+    
     public CustomerType getType() {
         return this.type;
     }

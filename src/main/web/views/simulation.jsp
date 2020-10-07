@@ -65,6 +65,13 @@
             z-index: 100;
         }
 
+        .earnings {
+            display: flex;
+            justify-content: flex-end;
+            margin: 30px 10% 0 15%;
+
+        }
+
         .h-divider {
             margin: 0 0 0 15%;
         }
@@ -82,6 +89,7 @@
         }
 
         .chart-container {
+            display: none;
             position: fixed;
             top: 12.5%;
             left: 12.5%;
@@ -89,6 +97,19 @@
             background-color: white;
             height: 75%;
             width: 75%;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 0 31px -5px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0 0 31px -5px rgba(0, 0, 0, 0.75);
+            box-shadow: 0 0 31px -5px rgba(0, 0, 0, 0.75);
+        }
+
+
+        .chart-container #close {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            border: none;
+            background: none;
         }
 
         #config-div {
@@ -99,37 +120,74 @@
             margin: 0 10% 10px 15%;
             text-align: center;
         }
+
+        .blurred {
+            display: none;
+            position: absolute;
+            z-index: 4;
+            bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(5px);
+        }
     </style>
     <script>
-        let sim
-        let totalEarnings = 0;
-        const config = {
-            name: " ",
+        let sim;
+        const park = {
+            name: "",
             lots: 0,
             price: 0,
+            earnings: 0,
+            totalCustomers: 0,
+            customers: {
+                usual: 0,
+                women: 0,
+                disabled: 0,
+                local: 0,
+                bike: 0,
+            }
         };
         const API_URL = "http://localhost:8080/SimulationServlet";
 
         function simulate() {
             $.ajax({
-                url: API_URL,
-                type: 'POST',
-                success: (res) => {
-                    console.log(res);
-                    if (res) {
-                        let tableElement = "<tr>";
-                        for (let key in res) {
-                            if (res.hasOwnProperty(key))
-                                tableElement += "<td>" + res[key] + "</td>";
+                    url: API_URL,
+                    type: 'POST',
+                    success: (res) => {
+                        console.log(res);
+                        if (res) {
+                            let tableElement = "<tr>";
+                            if (res.hasOwnProperty("CustomerType")) {
+                                park.totalCustomers++;
+                                park.earnings += Number(res["Price"]);
+                            }
+                            for (let key in res) {
+                                if (res.hasOwnProperty(key)) {
+                                    if (key === "freeSpaces") {
+                                        park.lots = res["freeSpaces"];
+                                        $('#carParkLots').text("Freie Parkplätze: " + park.lots);
+                                    } else {
+                                        if (res[key] === "USUAL") park.customers.usual++;
+                                        else if (res[key] === "WOMEN") park.customers.women++;
+                                        else if (res[key] === "DISABLED") park.customers.disabled++;
+                                        else if (res[key] === "LOCAL") park.customers.local++;
+                                        else park.customers.bike++;
+                                        tableElement += "<td>" + res[key] + "</td>";
+                                    }
+                                }
+                            }
+                            tableElement += "</tr>";
+                            $('#car-table tbody').append(tableElement);
+                            //console.log(park.totalCustomers)
+                            $('#earnings').text("Einnahmen: " + park.earnings + "€");
                         }
-                        tableElement += "</tr>";
-                        $('#car-table tbody').append(tableElement);
+                    },
+                    complete: () => {
+                        sim = setTimeout(simulate, 1000)
                     }
-                },
-                complete: () => {
-                    sim = setTimeout(simulate, 100)
                 }
-            })
+            )
         }
 
         function getConfig() {
@@ -142,13 +200,14 @@
                 success: (res) => {
                     console.log(res);
                     if (res) {
-                        config.name = res["Parkhausname"];
-                        config.lots = Number(res["Parkplätze gesamt"]);
-                        config.price = parseFloat(res["Preis"]);
+                        park.name = res["Parkhausname"];
+                        park.lots = Number(res["Parkplätze gesamt"]);
+                        park.price = parseFloat(res["Preis"]);
                     }
-                    $('#carParkName').text("Parkhausname: " + config.name);
-                    $('#carParkLots').text("Freie Parkplätze: " + config.lots);
-                    $('#carParkPrice').text("Preis pro Stunde: " + config.price + "0€");
+                    $('#carParkName').text("Parkhausname: " + park.name);
+                    $('#carParkLots').text("Freie Parkplätze: " + park.lots);
+                    $('#carParkPrice').text("Preis pro Stunde: " + park.price + "0€");
+                    $('#earnings').text("Einnahmen: " + park.earnings + "€");
                 }
             })
         }
@@ -162,6 +221,8 @@
                 },
                 success: (res) => {
                     $('#car-table').find("tr:gt(0)").remove();
+                    park.earnings = 0;
+                    getConfig();
                 }
             });
 
@@ -175,18 +236,25 @@
                 $('#start').hide();
                 $('#stop').show();
                 $('#reset').show();
+                $('#chart-button').hide();
                 simulate();
             })
             $('#stop').hide().on('click', () => {
                 clearTimeout(sim);
                 $('#stop').hide();
-                $('#start').show()
+                $('#start').show();
+                $('#chart-button').show();
             })
             $('#reset').hide().on('click', () => {
                 resetSimulation();
             })
-            $('#chart-button').on('click', () => {
-                $('body').not($('#chart-container')).css("filter", "blur(2px)");
+            $('#chart-button').hide().on('click', () => {
+                $('#chart-container').show();
+                $('.blurred').show();
+            })
+            $('#close').on('click', () => {
+                $('#chart-container').hide();
+                $('.blurred').hide();
             })
         });
 
@@ -226,13 +294,20 @@
     <div class="h-divider">
         <hr>
     </div>
+    <div class="earnings">
+        <span id="earnings" class="badge badge-success"></span>
+    </div>
     <div class="chart-button">
         <button id="chart-button" class="btn btn-primary">Show Charts</button>
     </div>
 
 </div>
 <div id="chart-container" class="chart-container">
+    <button id="close"><span aria-hidden="true">&times;</span></button>
     <h1>TEST</h1>
+</div>
+<div class="blurred">
+
 </div>
 </body>
 </html>

@@ -4,6 +4,7 @@ import models.CarPark;
 import models.Config;
 
 import javax.json.JsonObject;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +22,12 @@ import static utilities.requestUtilities.createJson;
 @WebServlet(name = "ConfigServlet")
 public class ConfigServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        ServletContext ctx = getServletContext();
         if (checkAttributes(req)) { //if Configuration is valid => create car park and save to servletcontext
             JsonObject cfg = createJson(req);
+            ctx.setAttribute("config", new Config(cfg));
             CarPark carPark = new CarPark(new Config(cfg));
-            getServletContext().setAttribute("carPark", carPark);
+            ctx.setAttribute("carPark", carPark);
             res.setStatus(HttpServletResponse.SC_OK);
 
         } else { //else send error

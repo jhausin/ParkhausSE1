@@ -20,8 +20,7 @@ public class Car implements VehicleIF {
     public String getLicensePlate() {
         return this.licensePlate;
     }
-
-    @Override
+    
     public CustomerType getType() {
         return this.type;
     }

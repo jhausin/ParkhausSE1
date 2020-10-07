@@ -10,7 +10,7 @@ import javax.json.JsonObject;
  */
 
 public class responseUtilities {
-    public static JsonObject createVehicleAsJson(VehicleIF v) {
+    public static JsonObject createVehicleAsJson(VehicleIF v, int freeSpaces) {
         return Json.createObjectBuilder()
                 .add("CustomerType", v.getType().name())
                 .add("LicensePlate", v.getLicensePlate())
@@ -18,6 +18,7 @@ public class responseUtilities {
                 .add("ExitDate", v.getTicket().getExitDate().toString())
                 .add("Price", v.getTicket().getPrice())
                 .add("TicketID", v.getTicket().getTicketID())
+                .add("freeSpaces", freeSpaces)
                 .build();
     }
 }
