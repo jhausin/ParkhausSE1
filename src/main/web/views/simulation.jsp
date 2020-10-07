@@ -82,6 +82,12 @@
             height: 1px;
         }
 
+        .info {
+            position: absolute;
+            bottom: 10px;
+            margin-left: 15px;
+        }
+
         .chart-button {
             margin: 30px 10% 0 15%;
             display: flex;
@@ -320,7 +326,7 @@
 <div class="simulation-container">
     <div class="control-container">
         <h1>Simulation</h1>
-        <button id="start" class="btn btn-primary">Start Simulation</button>
+        <button id="start" class="btn btn-primary">Start Simulation*</button>
         <button id="stop" class="btn btn-danger">Stop Simulation</button>
         <button id="reset" class="btn btn-warning">Reset</button>
     </div>
@@ -354,6 +360,10 @@
     </div>
     <div class="chart-button">
         <button id="chart-button" class="btn btn-primary">Show Charts</button>
+    </div>
+    <div class="info">
+        <small>* Wenn keine Konfiguration angegeben wird, startet die Simulation mit der <i>DEFAULT</i>
+            Konfiguration.</small>
     </div>
 
 </div>
