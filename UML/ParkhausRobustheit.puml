@@ -1,0 +1,38 @@
+@startuml
+
+actor User
+rectangle Parkhaus{
+boundary Webapp
+control SimulationServlet
+Webapp <.. SimulationServlet: <<use>
+entity VehicleIF
+SimulationServlet ..> VehicleIF: <<use>>
+control ConfigServlet
+entity Config
+ConfigServlet ..> Config: <<use>>
+Webapp <.. ConfigServlet: <<use>>
+rectangle licensePlate <<dataType>>
+rectangle customerType <<dataType>>
+rectangle ticket <<dataType>>
+VehicleIF o.. licensePlate
+VehicleIF o.. customerType
+VehicleIF o.. ticket
+rectangle name <<dataType>>
+rectangle totalLots <<dataType>>
+rectangle womenLots <<dataType>>
+rectangle disabledLots <<dataType>>
+rectangle localLots <<dataType>>
+rectangle bikeLots <<dataType>>
+rectangle price <<dataType>>
+Config o.. name
+Config o.. totalLots
+Config o.. womenLots
+Config o.. disabledLots
+Config o.. localLots
+Config o.. bikeLots
+Config o.. price
+}
+left to right direction
+User -- Webapp
+
+@enduml
