@@ -17,7 +17,7 @@ Wir haben versucht sowohl Front-End als auch Back-End selbst zu entwickeln.
 | **Iterationsbericht**                                         | [Hier](https://github.com/jhausin/ParkhausSE1/wiki/Iterationsbericht)|
 | **Kanban-Board**                                              | [Hier](https://github.com/jhausin/ParkhausSE1/wiki/Kanban-Board)|
 | **Patternverzeichnis**                                        | [Hier](https://github.com/jhausin/ParkhausSE1/wiki/Patternverzeichnis)|
-| **Resumê und Fazit**                                          | [Hier](https://github.com/jhausin/ParkhausSE1/wiki/Resum%C3%A9e-und-Fazit)|
+| **Resumé und Fazit**                                          | [Hier](https://github.com/jhausin/ParkhausSE1/wiki/Resum%C3%A9e-und-Fazit)|
 | **Robustheitsdiagramm**                                       | [Hier](https://github.com/jhausin/ParkhausSE1/wiki/Robustheitsdiagramme)|
 | **Summarisches Projektprotokoll**                             | [Hier](https://github.com/jhausin/ParkhausSE1/wiki/Summarisches-Projektprotokoll)|
 | **Aktivitätsdiagramm**                                        | [Hier](https://github.com/jhausin/ParkhausSE1/wiki/UML-Aktivit%C3%A4tsdiagramme)|
