@@ -1,0 +1,40 @@
+/**
+* Author: Joshua Bäuml
+*/
+@startuml
+title Default __Auto im Parkhaus parken__
+|Manager|
+start
+:Parkgebuehren festlegen;
+|#AntiqueWhite|Kassierer|
+:Parkgebuehren berechnen;
+|Kunde|
+if (Zahlung) then
+-> mit Karte;
+|Kassierer|
+:Terminal bereitstellen;
+|Kunde|
+:mit Karte zahlen;
+else
+-> mit Bargeld;
+|Kunde|
+:Bar zahlen;
+
+endif
+|#Beige|Kunde|
+|Kassierer|
+:Zahlung ueberpruefen;
+if (nach kassenbon fragen) then
+-> nicht erweunscht;
+
+else
+-> erwuenscht;
+|Kassierer|
+:Kassenbon ausgeben;
+|Kunde|
+:Kassenbon entgegen nehmen;
+endif
+|Kunde|
+:gehen;
+stop
+@enduml
