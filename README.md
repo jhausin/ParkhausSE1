@@ -5,7 +5,7 @@ In diesem Dokument wird unser Semesterprojekt aus dem Kurs 'Software Engineering
 Das Thema des Projektes war es eine digitale Version eines Parkhauses zu erstellen. Dies sollte mit Hilfe von Java EE umgesetzt werden.
 Wir haben versucht sowohl Front-End als auch Back-End selbst zu entwickeln.
 
-##Autoren
+## Autoren
 
 * **Axel Kirst
 * **Joshua Bäuml
