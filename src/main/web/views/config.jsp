@@ -17,6 +17,7 @@
             src="http://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
             crossorigin="anonymous"></script>
+    <script src="../scripts/config.js"></script>
     <style>
 
         :root {
@@ -92,35 +93,6 @@
     </style>
 </head>
 <body>
-<script>
-    $('document').ready(() => {
-        $('#form').submit((event) => {
-            event.preventDefault();
-            const data = $('#form').serializeArray();
-            $.ajax({
-                url: "http://localhost:8080/ConfigServlet",
-                type: 'POST',
-                data: data,
-                error: (xhr, error, status) => {
-                    $('.alert').text("Konfiguration ungültig. Bitte Eingabe überprüfen.")
-                        .removeClass("alert-success")
-                        .addClass("alert-danger")
-                        .show();
-                },
-                success: (xhr, error, status) => {
-                    $('.alert')
-                        .text("Konfiguration erfolgreich gespeichert.")
-                        .removeClass("alert-danger")
-                        .addClass("alert-success")
-                        .show();
-                }
-            })
-        });
-        $('form').on('keyup change paste', 'input', () => {
-            $('.alert').hide();
-        })
-    })
-</script>
 <jsp:include page="/templates/container.html"/>
 <div class="config-container">
     <div class="inner-container">
