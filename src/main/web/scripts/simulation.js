@@ -89,7 +89,7 @@ function simulate() {
                 }
             },
             complete: () => {
-                sim = setTimeout(simulate, 500)
+                sim = setTimeout(simulate, 1000)
             }
         }
     )
